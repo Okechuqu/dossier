@@ -15,12 +15,6 @@ export const profileCard = defineType({
       type: 'string',
       validation: (rule) => rule.required(),
     }),
-    // defineField({
-    //   name: 'slug',
-    //   type: 'slug',
-    //   options: {source: 'title'},
-    //   validation: (rule) => rule.required(),
-    // }),
     defineField({
       name: 'image',
       type: 'image',
@@ -37,6 +31,15 @@ export const profileCard = defineType({
       title: 'Location',
       validation: (rule) => rule.required(),
     }),
+    {
+      name: 'cv',
+      title: 'CV',
+      type: 'file',
+      options: {
+        accept: '.pdf',
+      },
+      validation: (rule) => rule.required().error('Please upload a PDF file'),
+    },
     defineField({
       name: 'email',
       type: 'string',
@@ -48,28 +51,11 @@ export const profileCard = defineType({
           .error('Enter a valid email address'),
     }),
     defineField({
-      name: 'linkedin',
-      type: 'url',
-      title: 'Linkedin URL',
-      validation: (rule) => rule.required().uri({ allowRelative: false }),
-    }),
-    defineField({
-      name: 'github',
-      type: 'url',
-      title: 'Github URL',
-      validation: (rule) => rule.required().uri({ allowRelative: false }),
-    }),
-    defineField({
-      name: 'x',
-      type: 'url',
-      title: 'X URL',
-      validation: (rule) => rule.required().uri({ allowRelative: false }),
-    }),
-    defineField({
-      name: 'instagram',
-      type: 'url',
-      title: 'Instagram URL',
-      validation: (rule) => rule.required().uri({ allowRelative: false }),
+      name: 'socials',
+      type: 'reference',
+      title: 'Socials Links',
+      to: [{type: 'socials'}],
+      validation: (rule) => rule.required(),
     }),
   ],
 })

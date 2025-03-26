@@ -71,6 +71,13 @@ const FloatingDockMobile = ({
                   href={item.href}
                   key={item.title}
                   className="h-10 w-10 rounded-full bg-gray-50 flex items-center justify-center"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(item.href);
+                    if (target) {
+                      target.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
                 >
                   <div className="h-6 w-4">{item.icon}</div>
                 </Link>
@@ -164,7 +171,16 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <Link href={href}>
+    <Link
+      href={href}
+      onClick={(e) => {
+        e.preventDefault(); // Prevent default anchor behavior
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      }}
+    >
       <motion.div
         ref={ref}
         style={{ width: springSize, height: springSize }}

@@ -4,6 +4,7 @@ import { IconMessage } from "@tabler/icons-react";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "../client";
 import React from "react";
+import CustomPortableText from "../lib/customs";
 
 const TITLE_QUERY = `*[
   _type == "title"
@@ -21,10 +22,10 @@ interface TitleDataDocument {
 }
 
 interface TestimonialDataDocument {
-  testimonial_quote: any[];
-  testimonial_author_name: string;
-  testimonial_author_designation: string;
-  testimonial_author_image?: string;
+  quote: string;
+  name: string;
+  designation: string;
+  src: string;
 }
 
 const { projectId, dataset } = client.config();
@@ -42,19 +43,23 @@ const Testimonial = async () => {
   ]);
 
   const response = testimonialDataResponse.map((doc) => {
-    const imageUrl = doc.testimonial_author_image
-      ? urlFor(doc.testimonial_author_image)?.url() || ""
-      : ""; // Fallback to empty string if image is missing
+    const imageUrl = doc.src ? urlFor(doc.src)?.url() || "" : ""; // Fallback to empty string if image is missing
 
     return {
-      quote: Array.isArray(doc.testimonial_quote)
-        ? doc.testimonial_quote.join(" ")
-        : "", // Safely handle undefined or non-array values
-      name: doc.testimonial_author_name,
-      designation: doc.testimonial_author_designation,
+      quote: doc.quote, // Ensure it's a string
+      quoteComponent: doc.quote ? (
+        <CustomPortableText value={doc.quote} />
+      ) : null, // Separate JSX
+
+      name: doc.name,
+      designation: doc.designation,
       src: imageUrl,
     };
   });
+
+  // Ensure data exists before rendering
+  if (!testimonialDataResponse || testimonialDataResponse.length === 0)
+    return "";
 
   return (
     <div

@@ -7,21 +7,21 @@ import { client } from "../client";
 import { SanityDocument } from "next-sanity";
 import CustomPortableText from "../lib/customs";
 
-const DATA_QUERY = `*[
+const HERO_QUERY = `*[
   _type == "hero"
 ] | order(_createdAt desc) [0]`;
 
 const options = { next: { revalidate: 30 } };
 
 const Hero = async () => {
-  const data = await client.fetch<SanityDocument>(DATA_QUERY, {}, options);
+  const data = await client.fetch<SanityDocument>(HERO_QUERY, {}, options);
 
   // Ensure data exists before rendering
-  if (!data) return <p className="text-white">Hero not found.</p>;
+  if (!data) return "";
 
   return (
     <>
-      <div className="flex flex-col lg:ml-[26rem] sm:flex-row justify-between text-white mb-6">
+      <div className="flex flex-col lg:ml-[26rem] sm:flex-row justify-between text-white mb-6 lg:w-[63rem] -mr-[3rem]">
         <div className="no-underline group relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
           <div className="relative flex space-x-2 items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
             <IconHome2 />

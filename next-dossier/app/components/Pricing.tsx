@@ -1,69 +1,95 @@
 import React from "react";
 import { HoverEffect } from "./ui/card-hover-effect";
 import { IconMessage } from "@tabler/icons-react";
+import { client } from "../client";
 
-const projects = [
-  {
-    title: "Basic",
-    description: `Have design ready to build? \nor small budget`,
-    amount: <Amount />,
-    features: <Features />,
-    link: "#contact",
-  },
-  {
-    title: "Premuim",
-    description: "Not have any design? \nLeave its for me",
-    amount: <Amount />,
-    features: <Features />,
-    link: "#contacts",
-  },
-];
+const PRICING_QUERY = `*[
+  _type == "pricing"
+] | order(_createdAt desc)`;
 
-const Pricing = () => {
+const TITLE_QUERY = `*[
+  _type == "title"
+] | order(_createdAt desc) [0]`;
+
+const options = { next: { revalidate: 30 } };
+
+interface TitleDataDocument {
+  pricing_title: string;
+  pricing_title_span: string;
+}
+
+interface PricingDataDocument {
+  price_header: string;
+  price_info: string;
+  price_per_hour: string;
+  price_features: string[];
+  price_link: string;
+}
+
+const Pricing = async () => {
+  // Fetch pricing and title data concurrently
+  const [pricingDataResponse, titleDataResponse] = await Promise.all([
+    client.fetch<PricingDataDocument[]>(PRICING_QUERY, {}, options),
+    client.fetch<TitleDataDocument>(TITLE_QUERY, {}, options),
+  ]);
+
+  if (!pricingDataResponse || pricingDataResponse.length === 0) return "";
+
+  // Prepare projects with synchronous child components
+  const projects = pricingDataResponse.map((doc) => ({
+    header: doc.price_header,
+    description: doc.price_info,
+    features: <FeaturesSync features={doc.price_features} />,
+    amount: <AmountSync amount={doc.price_per_hour} />,
+    link: `#${doc.price_link}`,
+  }));
+
   return (
     <div className="flex flex-col lg:max-w-[52rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[3rem]">
-      {/* Pricing */}
+      {/* Pricing Header */}
       <div className="grid grid-cols-1 lg:grid-cols-2 justify-between text-white mb-[40px] lg:mb-[88px]">
-        <div className="bg-slate-800 no-underline group w-[8rem] relative shadow-2xl shadow-zinc-900 rounded-full p-px  leading-6  text-white inline-block">
-          <div className="relative flex space-x-2 items-center z-10  rounded-full bg-gray-900  py-2 px-4 ring-1 ring-white/10 ">
+        <div className="bg-slate-800 no-underline group w-[8rem] relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6 text-white inline-block">
+          <div className="relative flex space-x-2 items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10">
             <IconMessage />
-            <p></p>
             <span className="uppercase text-xs">Pricing</span>
           </div>
         </div>
       </div>
       <h1 className="md:text-5xl text-xl mb-2 md:mb-6">
-        My <span className="text-green-500">Pricing</span>
+        {titleDataResponse.pricing_title}{" "}
+        <span className="text-green-500">
+          {titleDataResponse.pricing_title_span}
+        </span>
       </h1>
       <HoverEffect items={projects} className="h-[33rem]" />
     </div>
   );
 };
 
-function Features() {
+// Synchronous Features component that receives features as props
+const FeaturesSync = ({ features }: { features: string[] }) => {
   return (
     <div>
-      <ul className="list-none  mt-2">
-        <Step title="Need your wireframe" />
-        <Step title="Design with Figma, Framer" />
-        <Step title="Implement with Webflow, React, WordPress, Laravel/PHP" />
-        <Step title="Remote/Online" />
-        <Step title="Work in business days, no weekend." />
-        <Step title="Support 6 months" />
+      <ul className="list-none mt-2">
+        {features.map((feature, idx) => (
+          <Step key={idx} title={feature} />
+        ))}
       </ul>
     </div>
   );
-}
+};
 
-function Amount() {
+// Synchronous Amount component that receives the amount as a prop
+const AmountSync = ({ amount }: { amount: string }) => {
   return (
     <div className="mt-[3rem]">
       <h1 className="text-4xl text-green-500 mb-1 mt-2">
-        $35 <span className="text-gray-500">/hour</span>
+        ${amount}
+        <span className="text-gray-500">/hour</span>
       </h1>
     </div>
   );
-}
+};
 
 const Step = ({ title }: { title: string }) => {
   return (

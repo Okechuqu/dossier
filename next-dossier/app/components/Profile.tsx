@@ -1,7 +1,7 @@
 import {
   IconBrandGithub,
-  IconBrandInstagram,
   IconBrandLinkedin,
+  IconBrandUpwork,
   IconBrandX,
   IconMessage2Bolt,
 } from "@tabler/icons-react";
@@ -14,9 +14,12 @@ import imageUrlBuilder from "@sanity/image-url";
 
 // Replace with your Sanity project ID and dataset
 
-const DETAILS_QUERY = `*[
+const PROFILE_QUERY = `*[
   _type == "profile"
-] | order(_createdAt desc) [0]`;
+] {
+  ...,
+  socials->,
+  } | order(_createdAt desc) [0]`;
 
 const options = { next: { revalidate: 30 } };
 
@@ -26,9 +29,19 @@ const urlFor = (source: SanityImageSource) =>
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 
+const buildFileUrl = (fileAsset: any): string | null => {
+  if (!fileAsset?.asset?._ref) return null;
+  const ref: string = fileAsset.asset._ref;
+  const parts = ref.split("-");
+  if (parts.length !== 3) return null;
+  const assetId = parts[1];
+  const extension = parts[2];
+  return `https://cdn.sanity.io/files/${projectId}/${dataset}/${assetId}.${extension}`;
+};
+
 const Profile = async () => {
-  const detail = await client.fetch<SanityDocument>(DETAILS_QUERY, {}, options);
-  const postImageUrl = detail.image ? urlFor(detail.image)?.url() : null;
+  const detail = await client.fetch<SanityDocument>(PROFILE_QUERY, {}, options);
+  const postImageUrl = detail?.image ? urlFor(detail.image)?.url() : null;
 
   // Ensure detail exists before rendering
   if (!detail) return "";
@@ -63,56 +76,58 @@ const Profile = async () => {
         <p className="text-white/60">{detail.location}</p>
       </div>
 
-      {/* Email */}
-      {detail.email && (
+      {/* CV */}
+      {detail.cv && (
         <Link
-          href={`mailto:${detail.email}`}
+          href={buildFileUrl(detail.cv) || ""}
+          download={`${detail.name}'s CV`}
+          target="_blank"
           className="text-sm text-white/60 my-[1.5rem]"
         >
-          {detail.email}
+          {detail.cv ? "Download My CV" : ""}
         </Link>
       )}
 
       {/* Social Links */}
       <div className="flex flex-row gap-2 text-center">
-        {detail.linkedin && (
+        {detail.socials?.github && (
           <Link
-            href={detail.linkedin}
+            href={detail.socials.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-blue-500 hover:border-blue-500 rounded-full glass"
-          >
-            <IconBrandLinkedin />
-          </Link>
-        )}
-        {detail.github && (
-          <Link
-            href={detail.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-green-500 hover:border-green-500 rounded-full glass"
+            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-gray-900 border-gray-300 rounded-full glass"
           >
             <IconBrandGithub />
           </Link>
         )}
-        {detail.x && (
+        {detail.socials?.linkedin && (
           <Link
-            href={detail.x}
+            href={detail.socials.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-gray-500 hover:border-gray-500 rounded-full glass"
+            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-blue-500 border-blue-500 rounded-full glass"
           >
-            <IconBrandX />
+            <IconBrandLinkedin />
           </Link>
         )}
-        {detail.instagram && (
+        {detail.socials?.upwork && (
           <Link
-            href={detail.instagram}
+            href={detail.socials.upwork}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-red-500 hover:border-red-500 rounded-full glass"
+            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-green-500 border-green-500 rounded-full glass"
           >
-            <IconBrandInstagram />
+            <IconBrandUpwork />
+          </Link>
+        )}
+        {detail.socials?.x && (
+          <Link
+            href={detail.socials.x}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-gray-900 border-gray-900 rounded-full glass"
+          >
+            <IconBrandX />
           </Link>
         )}
       </div>

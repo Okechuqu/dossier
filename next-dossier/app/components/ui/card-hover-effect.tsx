@@ -9,7 +9,7 @@ export const HoverEffect = ({
   className,
 }: {
   items: {
-    title: string;
+    header: string;
     description: string;
     features: string | React.ReactNode;
     amount: string | React.ReactNode;
@@ -48,7 +48,7 @@ export const HoverEffect = ({
           </AnimatePresence>
           <Card>
             <div className="flex flex-row items-center justify-between w-full">
-              <CardTitle className="flex-1">{item.title}</CardTitle>
+              <CardTitle className="flex-1">{item.header}</CardTitle>
               <CardDescription className="flex-1 whitespace-pre-line">
                 {item.description}
               </CardDescription>

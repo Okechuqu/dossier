@@ -5,8 +5,8 @@ import { FloatingDock } from "./ui/floating-dock";
 import {
   IconBrandInstagramFilled,
   IconBrandFacebookFilled,
-  IconBrandTwitterFilled,
   IconBrandTiktokFilled,
+  IconBrandXFilled,
   IconCube3dSphere,
   IconHeartDollar,
   IconBriefcase,
@@ -19,6 +19,17 @@ import {
   IconUser,
   IconX,
 } from "@tabler/icons-react";
+import { client } from "../client";
+import { SanityDocument } from "next-sanity";
+
+const PROFILE_QUERY = `*[
+  _type == "profile"
+] {
+  ...,
+  socials->,
+  } | order(_createdAt desc) [0]`;
+
+const options = { next: { revalidate: 30 } };
 
 const links = [
   {
@@ -90,7 +101,20 @@ const Navigation = () => {
 };
 
 export function Sidebar() {
+  const [socialDetail, setSocialDetail] = useState<SanityDocument | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+
+  React.useEffect(() => {
+    const fetchSocialDetail = async () => {
+      const data = await client.fetch<SanityDocument>(
+        PROFILE_QUERY,
+        {},
+        options
+      );
+      setSocialDetail(data);
+    };
+    fetchSocialDetail();
+  }, []);
 
   return (
     <div className="relative">
@@ -138,6 +162,13 @@ export function Sidebar() {
                 <a
                   href={link.href}
                   className="block text-gray-50 hover:text-green-500"
+                  onClick={(e) => {
+                    e.preventDefault(); // Prevent default anchor behavior
+                    const target = document.querySelector(link.href);
+                    if (target) {
+                      target.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
                 >
                   {link.title}
                 </a>
@@ -148,42 +179,43 @@ export function Sidebar() {
           {/* Sidebar Social Icons */}
           <div className="flex flex-col justify-center gap-2 mt-16">
             <p className="text-lg">Socials</p>
-            <div className="flex flex-row">
-              <a
-                href="https://www.facebook.com/manuelmartinezalvarez1985/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 hover:text-blue-500"
-              >
-                <IconBrandFacebookFilled size={20} />
-              </a>
-              <a
-                href="https://www.instagram.com/manuelmartinezalvarez1985/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 hover:text-red-500 ml-4"
-              >
-                <IconBrandInstagramFilled size={20} />
-              </a>
-              <a
-                href="https://www.instagram.com/manuelmartinezalvarez1985/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 hover:text-white ml-4"
-              >
-                <IconBrandTiktokFilled size={20} />
-              </a>
-              <a
-                href="https://www.instagram.com/manuelmartinezalvarez1985/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/60 hover:text-blue-500 ml-4"
-              >
-                <IconBrandTwitterFilled size={20} />
-              </a>
-            </div>
+            {socialDetail?.socials && (
+              <div className="flex flex-row">
+                <a
+                  href={socialDetail?.socials?.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500"
+                >
+                  <IconBrandFacebookFilled size={20} />
+                </a>
+                <a
+                  href={socialDetail?.socials?.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-red-500 ml-4"
+                >
+                  <IconBrandInstagramFilled size={20} />
+                </a>
+                <a
+                  href={socialDetail?.socials?.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white ml-4"
+                >
+                  <IconBrandTiktokFilled size={20} />
+                </a>
+                <a
+                  href={socialDetail?.socials?.x}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-900 ml-4"
+                >
+                  <IconBrandXFilled size={20} />
+                </a>
+              </div>
+            )}
           </div>
-
           {/* Sidebar Footer */}
           <div className="flex flex-col justify-end p-4 bottom-0 absolute">
             <p className="text-gray-500 flex gap-2 text-sm">
@@ -191,12 +223,12 @@ export function Sidebar() {
               <IconHeartDollar size={15} className="text-red-500" /> by{" "}
             </p>
             <a
-              href="https://www.linkedin.com/in/manuel-martinez-alvarez-b60b9a1b0/"
+              href={socialDetail?.socials?.upwork}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-green-500 hover:text-gray-500 text-end"
+              className="text-green-500 hover:text-gray-500 text-end font-semibold text-base"
             >
-              Manuel Martinez Alvarez
+              {socialDetail?.title}
             </a>
           </div>
         </nav>

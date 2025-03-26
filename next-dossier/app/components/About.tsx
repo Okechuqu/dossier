@@ -14,7 +14,7 @@ const About = async () => {
   const data = await client.fetch<SanityDocument>(DATA_QUERY, {}, options);
 
   // Ensure data exists before rendering
-  if (!data) return <p className="text-white">Not found.</p>;
+  if (!data) return "";
   return (
     <div
       id="about"

@@ -103,6 +103,9 @@ const Portfolio = () => {
 
   useOutsideClick(ref, () => setActive(null));
 
+  // Ensure portfolio data exists before rendering
+  if (!portfolioData || portfolioData.length === 0) return "";
+
   return (
     <>
       <AnimatePresence>

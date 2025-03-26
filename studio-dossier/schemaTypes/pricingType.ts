@@ -13,8 +13,8 @@ export const pricingType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'info',
-      title: 'Info',
+      name: 'price_info',
+      title: 'Price Info',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
@@ -28,8 +28,20 @@ export const pricingType = defineType({
       name: 'price_features',
       title: 'Price features',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{type: 'features'}],
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'price_link',
+      title: 'Price Link',
+      type: 'string',
       validation: (rule) => rule.required(),
     }),
   ],
+})
+
+export const features = defineType({
+  name: 'features',
+  title: 'Price Features',
+  type: 'string',
 })

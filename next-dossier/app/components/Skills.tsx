@@ -39,8 +39,9 @@ const Skill = async () => {
     client.fetch<SkillDataDocument[]>(SKILL_QUERY, {}, options),
     client.fetch<TitleDataDocument>(TITLE_QUERY, {}, options),
   ]);
-  // Ensure title and skill data exists before rendering
-  if (!titleDataResponse || !skillDataResponse) return "";
+
+  // Ensure skill data exists before rendering
+  if (!skillDataResponse || skillDataResponse.length === 0) return "";
 
   return (
     <div
