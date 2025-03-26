@@ -15,7 +15,7 @@ export default function Home() {
     <div className="lg:min-h-screen lg:flex bg-gray-900 text-foreground lg:p-8  lg:w-screen overflow-x-hidden">
       <Profile />
       <Navigation />
-      <div className="flex flex-col">
+      <div className="flex flex-col overflow-x-hidden">
         <Hero />
         <About />
         <Resume />
