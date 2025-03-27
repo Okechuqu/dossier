@@ -57,5 +57,23 @@ export const profileCard = defineType({
       to: [{type: 'socials'}],
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'meta_title',
+      type: 'string',
+      title: 'Meta Title',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'meta_description',
+      type: 'text',
+      title: 'Meta Description',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'meta_favicon',
+      type: 'image',
+      title: 'Meta Favicon',
+      validation: (rule) => rule.required(),
+    }),
   ],
 })
