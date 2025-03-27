@@ -48,7 +48,11 @@ const Testimonial = async () => {
     return {
       quote: doc.quote, // Ensure it's a string
       quoteComponent: doc.quote ? (
-        <CustomPortableText value={doc.quote} />
+        <CustomPortableText
+          value={[
+            { _type: "block", children: [{ text: doc.quote, _type: "span" }] },
+          ]}
+        />
       ) : null, // Separate JSX
 
       name: doc.name,

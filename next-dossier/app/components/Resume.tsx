@@ -6,6 +6,7 @@ import { client } from "../client";
 import CustomPortableText from "../lib/customs";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import imageUrlBuilder from "@sanity/image-url";
+import { PortableTextBlock } from "next-sanity";
 
 const RESUME_QUERY = `*[
   _type == "resume"
@@ -27,7 +28,7 @@ interface ResumeDataDocument {
   timeline: Array<{
     timeline_role: string;
     timeline_organization: string;
-    timeline_content: any;
+    timeline_content: PortableTextBlock[];
     timeline_image?: Array<{ asset: { url: string } }>;
   }>;
 }

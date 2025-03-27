@@ -23,15 +23,23 @@ const PROFILE_QUERY = `*[
 
 const options = { next: { revalidate: 30 } };
 
+interface SanityFileAsset {
+  asset: {
+    _ref: string;
+  };
+}
+
 const { projectId, dataset } = client.config();
 const urlFor = (source: SanityImageSource) =>
   projectId && dataset
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 
-const buildFileUrl = (fileAsset: any): string | null => {
+const buildFileUrl = (
+  fileAsset: SanityFileAsset | null | undefined
+): string | null => {
   if (!fileAsset?.asset?._ref) return null;
-  const ref: string = fileAsset.asset._ref;
+  const ref = fileAsset.asset._ref;
   const parts = ref.split("-");
   if (parts.length !== 3) return null;
   const assetId = parts[1];

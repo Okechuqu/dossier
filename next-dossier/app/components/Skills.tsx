@@ -23,7 +23,7 @@ interface TitleDataDocument {
 
 interface SkillDataDocument {
   skill_rate: number;
-  skill_title: any;
+  skill_title: string;
   skill_image?: { asset: { url: string } };
 }
 

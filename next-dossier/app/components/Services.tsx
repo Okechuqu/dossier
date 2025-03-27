@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { IconTerminal } from "@tabler/icons-react";
 import { client } from "../client";
 import CustomPortableText from "../lib/customs";
+import { PortableTextBlock } from "next-sanity";
 
 const TITLE_QUERY = `*[
   _type == "title"
@@ -21,7 +22,7 @@ interface TitleDataDocument {
 
 interface ServicesDataDocument {
   heading: string;
-  description: any;
+  description: PortableTextBlock[];
 }
 
 const Services = async () => {
@@ -74,7 +75,7 @@ const Feature = ({
   index,
 }: {
   heading: string;
-  description: string;
+  description: PortableTextBlock[];
   index: number;
 }) => {
   return (

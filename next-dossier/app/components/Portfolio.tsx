@@ -8,6 +8,7 @@ import { client } from "../client";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import imageUrlBuilder from "@sanity/image-url";
 import CustomPortableText from "../lib/customs";
+import { PortableTextBlock } from "next-sanity";
 
 const PORTFOLIO_QUERY = `*[
   _type == "portfolio"
@@ -25,7 +26,7 @@ interface TitleDataDocument {
 
 interface PortfolioDataDocument {
   portfolio_stack: string;
-  portfolio_description: any;
+  portfolio_description: PortableTextBlock[];
   portfolio_link: string;
   portfolio_image?: Array<{ asset: { url: string } }>;
 }
@@ -132,9 +133,14 @@ const Portfolio = () => {
           </div>
         </div>
         <div>
-          <h1 className="md:text-5xl text-xl mb-2 md:mb-6">
-            Featured <span className="text-green-500">Projects</span>
-          </h1>
+          {titleData && (
+            <h1 className="md:text-5xl text-xl mb-2 md:mb-6">
+              {titleData.portfolio_title}{" "}
+              <span className="text-green-500">
+                {titleData.portfolio_title_span}
+              </span>
+            </h1>
+          )}
         </div>
         <AnimatePresence>
           {active && (

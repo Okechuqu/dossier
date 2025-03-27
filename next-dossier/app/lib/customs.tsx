@@ -1,5 +1,9 @@
 import React from "react";
-import { PortableText, PortableTextComponents } from "next-sanity";
+import {
+  PortableText,
+  PortableTextBlock,
+  PortableTextComponents,
+} from "next-sanity";
 import Link from "next/link";
 
 // Define a type for the code block value
@@ -9,7 +13,7 @@ interface CodeValue {
 
 // Optionally define a type for your custom PortableText props
 interface CustomPortableTextProps {
-  value: any;
+  value: PortableTextBlock[];
 }
 
 const customComponents: PortableTextComponents = {

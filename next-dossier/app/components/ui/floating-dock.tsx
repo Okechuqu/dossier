@@ -103,8 +103,8 @@ const FloatingDockDesktop = ({
   items: { title: string; icon: React.ReactNode; href: string }[];
   className?: string;
 }) => {
-  let mouseX = useMotionValue(Infinity);
-  let mouseY = useMotionValue(Infinity);
+  const mouseX = useMotionValue(Infinity);
+  const mouseY = useMotionValue(Infinity);
   return (
     <motion.div
       onMouseMove={(e) => mouseX.set(e.pageX)}
@@ -144,7 +144,7 @@ function IconContainer({
   const ref = useRef<HTMLDivElement>(null);
 
   // Calculate the Euclidean distance from the icon's center to the mouse pointer.
-  const distance = useTransform([mouseX, mouseY], ([mx, my]) => {
+  const distance = useTransform([mouseX, mouseY], () => {
     const bounds = ref.current?.getBoundingClientRect();
     if (!bounds) return 150; // fallback value
     const centerX = bounds.x + bounds.width / 2;
