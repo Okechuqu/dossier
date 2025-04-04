@@ -46,7 +46,7 @@ const Skill = async () => {
   return (
     <div
       id="skills"
-      className="flex flex-col lg:max-w-[52rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[2rem]"
+      className="flex flex-col lg:max-w-[50rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[2rem]"
     >
       <div className="flex flex-row justify-between text-white mb-[40px] lg:mb-[88px]">
         <div className="bg-slate-800 no-underline group  relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6  text-white inline-block">
@@ -65,34 +65,37 @@ const Skill = async () => {
         </span>
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {skillDataResponse.map((skill, i) => {
-          const skillImage = skill.skill_image
-            ? urlFor(skill.skill_image)?.url() || skill.skill_image.asset.url
-            : null;
+        {skillDataResponse
+          .slice()
+          .reverse()
+          .map((skill, i) => {
+            const skillImage = skill.skill_image
+              ? urlFor(skill.skill_image)?.url() || skill.skill_image.asset.url
+              : null;
 
-          return (
-            <div
-              key={i}
-              className="flex flex-col gap-2 items-center justify-center"
-            >
-              <div className="glass items-center justify-center flex flex-col text-white rounded-full h-48 w-36 md:h-[15rem] md:w-[12rem] border border-slate-800 hover:border-green-500">
-                {skillImage && (
-                  <Image
-                    src={skillImage}
-                    width={80}
-                    height={80}
-                    alt={skill.skill_title}
-                    className="mb-6 rounded-3xl"
-                  />
-                )}
-                <p className="text-green-500 text-4xl mt-2">
-                  {skill.skill_rate}%
-                </p>
+            return (
+              <div
+                key={i}
+                className="flex flex-col gap-2 items-center justify-center"
+              >
+                <div className="glass items-center justify-center flex flex-col text-white rounded-full h-48 w-36 md:h-[15rem] md:w-[12rem] border border-slate-800 hover:border-green-500">
+                  {skillImage && (
+                    <Image
+                      src={skillImage}
+                      width={80}
+                      height={80}
+                      alt={skill.skill_title}
+                      className="mb-6 rounded-3xl"
+                    />
+                  )}
+                  <p className="text-green-500 text-4xl mt-2">
+                    {skill.skill_rate}%
+                  </p>
+                </div>
+                <p className="text-white capitalize">{skill.skill_title}</p>
               </div>
-              <p className="text-white capitalize">{skill.skill_title}</p>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );

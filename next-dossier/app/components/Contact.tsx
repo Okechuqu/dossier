@@ -150,7 +150,7 @@ const ContactForm: React.FC = () => {
   return (
     <section
       id="contact"
-      className="flex flex-col w-full lg:max-w-[52rem] lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white lg:mt-12 mt-[32rem]"
+      className="flex flex-col w-full lg:max-w-[49rem] lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white lg:mt-12 sm:mt-[50rem] md:mt-36"
     >
       <div className="flex justify-between items-center mb-10 lg:mb-22">
         <div className="bg-slate-800 no-underline group relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6 text-white inline-block">
@@ -246,17 +246,22 @@ const ContactForm: React.FC = () => {
           <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-6 h-px w-full" />
 
           <div className="space-y-4">
-            <LabelInputContainer className="relative">
+            <LabelInputContainer>
               <Label htmlFor="budget">Your Budget (Optional)</Label>
-              <span className="absolute left-3 top-[2.3rem] transform -translate-y-1/2 text-gray-100 font-semibold">
-                $
-              </span>
+              <div className="relative">
+                <span className="absolute left-3 top-[2rem] transform -translate-y-1/2 text-gray-100 font-semibold">
+                  $
+                </span>
+              </div>
+
               <Input
                 id="budget"
                 name="budget"
-                placeholder="Budget for your project"
+                placeholder={
+                  formData.budget === 0 ? "Budget for your project" : ""
+                }
                 type="number"
-                value={formData.budget}
+                value={formData.budget === 0 ? "" : formData.budget}
                 onChange={handleChange}
                 className="pl-6"
               />

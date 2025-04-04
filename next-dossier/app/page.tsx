@@ -12,10 +12,10 @@ import Testimonial from "./components/Testimonial";
 
 export default function Home() {
   return (
-    <div className="lg:min-h-screen lg:flex bg-gray-900 text-foreground lg:p-8  lg:w-screen overflow-x-hidden">
+    <div className="lg:min-h-full lg:flex bg-gray-900 text-foreground lg:p-8  lg:w-full overflow-x-hidden">
       <Profile />
       <Navigation />
-      <div className="flex flex-col overflow-x-hidden">
+      <div className="flex flex-col w-full">
         <Hero />
         <About />
         <Resume />

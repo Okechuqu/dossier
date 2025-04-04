@@ -15,8 +15,7 @@ export const resumeType = defineType({
       name: 'timeline',
       title: 'Timeline',
       type: 'array',
-      of: [{type: 'resumeData'}],
-      // validation: (rule) => rule.required(),
+      of: [{type: 'reference', to: [{type: 'resumeData'}]}],
     }),
   ],
 })

@@ -25,10 +25,11 @@ interface TitleDataDocument {
 }
 
 interface PortfolioDataDocument {
-  portfolio_stack: string;
+  portfolio_stack: string[];
   portfolio_description: PortableTextBlock[];
   portfolio_link: string;
   portfolio_image?: Array<{ asset: { url: string } }>;
+  portfolio_title: string;
 }
 
 const { projectId, dataset } = client.config();
@@ -46,12 +47,12 @@ const Portfolio = () => {
   const [titleData, setTitleData] = useState<TitleDataDocument | null>(null);
   const [active, setActive] = useState<{
     title: string;
+    stack: string[];
     images: string[];
     ctaText: string;
     ctaLink: string;
     content: () => JSX.Element;
   } | null>(null);
-
   // Fetch data once on mount
   useEffect(() => {
     async function fetchData() {
@@ -78,7 +79,7 @@ const Portfolio = () => {
         ? doc.portfolio_image.map((img) => urlFor(img)?.url() || img.asset.url)
         : ["/dp.JPG"];
     return {
-      title: doc.portfolio_stack,
+      stack: doc.portfolio_stack,
       images,
       ctaText: "Visit",
       ctaLink: doc.portfolio_link,
@@ -87,6 +88,7 @@ const Portfolio = () => {
           <CustomPortableText value={doc.portfolio_description} />
         </div>
       ),
+      title: doc.portfolio_title,
     };
   });
 
@@ -121,7 +123,7 @@ const Portfolio = () => {
       </AnimatePresence>
       <div
         id="portfolio"
-        className="flex flex-col lg:max-w-[52rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[2rem]"
+        className="flex flex-col lg:max-w-[50rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[2rem]"
       >
         <div className="flex flex-row justify-between text-white mb-[40px] lg:mb-[88px]">
           <div className="bg-slate-800 no-underline group relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6 text-white inline-block">
@@ -163,13 +165,16 @@ const Portfolio = () => {
                 </motion.div>
                 <div>
                   <div className="flex justify-between items-start p-4">
-                    <div>
-                      <motion.h3
-                        layoutId={`title-${active.title}-${id}`}
-                        className="font-medium text-neutral-100 dark:text-neutral-200 text-base"
-                      >
-                        {active.title}
-                      </motion.h3>
+                    <div className="flex gap-2 flex-wrap">
+                      {active.stack.map((stack: string) => (
+                        <motion.h3
+                          layoutId={`stack-${stack}-${id}`}
+                          className="font-medium border rounded-full px-3 text-neutral-100 bg-gray-800 dark:text-neutral-200 text-center md:text-left text-base"
+                          key={stack}
+                        >
+                          {stack}
+                        </motion.h3>
+                      ))}
                     </div>
                     <motion.a
                       layout
@@ -202,35 +207,46 @@ const Portfolio = () => {
           )}
         </AnimatePresence>
         <ul className="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-start gap-4">
-          {cards.map((card, index) => (
-            <motion.div
-              layoutId={`card-${card.title}-${id}`}
-              key={index}
-              onClick={() => setActive(card)}
-              className="p-4 flex flex-col glass hover:border-green-500 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
-            >
-              <div className="flex gap-4 flex-col w-full">
-                <motion.div layoutId={`image-${card.title}-${id}`}>
-                  <Image
-                    width={100}
-                    height={100}
-                    // Always show the first image in the list view.
-                    src={card.images[0]}
-                    alt={card.title}
-                    className="h-60 w-full rounded-lg object-cover object-top"
-                  />
+          {cards
+            .slice()
+            .reverse()
+            .map((card, index) => (
+              <div className="flex flex-col relative" key={index}>
+                <motion.div
+                  layoutId={`card-${card.stack}-${id}`}
+                  key={index}
+                  onClick={() => setActive(card)}
+                  className="p-4 flex flex-col glass hover:border-green-500 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+                >
+                  <div className="flex gap-4 flex-col w-full">
+                    <motion.div layoutId={`image-${card.stack}-${id}`}>
+                      <Image
+                        width={100}
+                        height={100}
+                        // Always show the first image in the list view.
+                        src={card.images[0]}
+                        alt={card.title}
+                        className="h-60 w-full rounded-lg object-cover object-top"
+                      />
+                    </motion.div>
+                    <div className="flex flex-wrap gap-2 mt-4 absolute top-52">
+                      {card.stack.map((stack: string) => (
+                        <motion.h3
+                          layoutId={`stack-${stack}-${id}`}
+                          className="font-medium border rounded-full px-3 text-neutral-100 bg-gray-800 dark:text-neutral-200 text-center md:text-left text-base"
+                          key={stack}
+                        >
+                          {stack}
+                        </motion.h3>
+                      ))}
+                    </div>
+                  </div>
                 </motion.div>
-                <div className="flex justify-center items-center flex-row absolute top-52">
-                  <motion.h3
-                    layoutId={`title-${card.title}-${id}`}
-                    className="font-medium border rounded-full p-1 mx-2 text-neutral-100 bg-gray-800 dark:text-neutral-200 text-center md:text-left text-base"
-                  >
-                    {card.title}
-                  </motion.h3>
-                </div>
+                <p className="mt-2 md:text-2xl hover:underline uppercase">
+                  {card.title}
+                </p>
               </div>
-            </motion.div>
-          ))}
+            ))}
         </ul>
       </div>
     </>

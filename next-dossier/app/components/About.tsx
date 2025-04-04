@@ -18,7 +18,7 @@ const About = async () => {
   return (
     <div
       id="about"
-      className="flex flex-col lg:max-w-[52rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[3rem]"
+      className="flex flex-col lg:max-w-[49rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[3rem]"
     >
       <div className="justify-between text-white mb-[40px] lg:mb-[88px]">
         <div className="bg-slate-800 no-underline group  relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6  text-white inline-block">

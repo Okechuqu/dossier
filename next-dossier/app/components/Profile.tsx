@@ -11,6 +11,7 @@ import { client } from "../client";
 import { type SanityDocument } from "next-sanity";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import imageUrlBuilder from "@sanity/image-url";
+import SmoothScrollLink from "../lib/smooth-scroll-link";
 
 // Replace with your Sanity project ID and dataset
 
@@ -80,7 +81,7 @@ const Profile = async () => {
 
       {/* Profile Details */}
       <div className="text-center text-white">
-        <h2 className="text-2xl font-bold">{detail.name}</h2>
+        <h2 className="text-base font-bold">{detail.name}</h2>
         <p className="text-white/60">{detail.location}</p>
       </div>
 
@@ -141,12 +142,12 @@ const Profile = async () => {
       </div>
 
       {/* Hire Me Button */}
-      <Link href="#contact">
+      <SmoothScrollLink href="#contact">
         <button className="flex flex-row items-center justify-center gap-2 bg-gradient-to-br uppercase relative group/btn from-green-600 to-green-200 w-[15rem] text-black rounded-3xl h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] mt-8">
           <IconMessage2Bolt />
           Hire me!
         </button>
-      </Link>
+      </SmoothScrollLink>
     </div>
   );
 };

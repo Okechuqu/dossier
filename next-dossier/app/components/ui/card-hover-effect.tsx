@@ -24,10 +24,17 @@ export const HoverEffect = ({
       {items.map((item, idx) => (
         <Link
           href={item?.link}
-          key={item?.link}
+          key={idx}
           className="relative group  block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
+          onClick={(e) => {
+            e.preventDefault(); // Prevent default anchor behavior
+            const target = document.querySelector(item?.link);
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
         >
           <AnimatePresence>
             {hoveredIndex === idx && (
@@ -76,7 +83,7 @@ export const Card = ({
         className
       )}
     >
-      <div className="relative z-50 flex flex-col">
+      <div className="md:relative absolute z-50 flex flex-col">
         <div className="p-4">{children}</div>
         <button
           type="button"

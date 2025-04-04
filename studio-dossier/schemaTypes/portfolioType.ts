@@ -15,7 +15,8 @@ export const portfolioType = defineType({
     defineField({
       name: 'portfolio_stack',
       title: 'Portfolio Stack',
-      type: 'string',
+      type: 'array',
+      of: [{type: 'string'}],
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -29,6 +30,12 @@ export const portfolioType = defineType({
       title: 'Portfolio Description',
       type: 'array',
       of: [{type: 'block'}],
+    }),
+    defineField({
+      name: 'portfolio_title',
+      title: 'Portfolio Title',
+      type: 'string',
+      validation: (rule) => rule.required(),
     }),
   ],
 })

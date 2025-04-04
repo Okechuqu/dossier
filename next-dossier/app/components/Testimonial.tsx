@@ -4,7 +4,6 @@ import { IconMessage } from "@tabler/icons-react";
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "../client";
 import React from "react";
-import CustomPortableText from "../lib/customs";
 
 const TITLE_QUERY = `*[
   _type == "title"
@@ -12,7 +11,12 @@ const TITLE_QUERY = `*[
 
 const TESTIMONIAL_QUERY = `*[
   _type == "testimonial"
-] | order(_createdAt desc)`;
+] | order(_createdAt desc){
+  "quote": testimonial_quote,
+  "name": testimonial_author_name,
+  "designation": testimonial_author_designation,
+  "src": testimonial_author_image
+}`;
 
 const options = { next: { revalidate: 30 } };
 
@@ -47,14 +51,6 @@ const Testimonial = async () => {
 
     return {
       quote: doc.quote, // Ensure it's a string
-      quoteComponent: doc.quote ? (
-        <CustomPortableText
-          value={[
-            { _type: "block", children: [{ text: doc.quote, _type: "span" }] },
-          ]}
-        />
-      ) : null, // Separate JSX
-
       name: doc.name,
       designation: doc.designation,
       src: imageUrl,
@@ -68,7 +64,7 @@ const Testimonial = async () => {
   return (
     <div
       id="testimonial"
-      className="flex flex-col lg:max-w-[52rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[3rem]"
+      className="flex flex-col lg:max-w-[50rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[3rem]"
     >
       <div className="flex flex-row justify-between text-white mb-[40px] lg:mb-[88px]">
         <div className="bg-slate-800 no-underline group  relative shadow-2xl shadow-zinc-900 rounded-full p-px  leading-6  text-white inline-block">

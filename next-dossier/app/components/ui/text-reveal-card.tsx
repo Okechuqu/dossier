@@ -50,7 +50,7 @@ export const TextRevealCard = ({
     setIsMouseOver(true);
   }
   function touchMoveHandler(event: React.TouchEvent<HTMLDivElement>) {
-    event.preventDefault();
+    // event.preventDefault();
     const clientX = event.touches[0]!.clientX;
     if (cardRef.current) {
       const relativeX = clientX - left;
@@ -106,7 +106,7 @@ export const TextRevealCard = ({
             opacity: widthPercentage > 0 ? 1 : 0,
           }}
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          className="h-40 w-[8px] bg-gradient-to-b from-transparent via-neutral-800 to-transparent absolute z-50 will-change-transform"
+          className="h-40 w-[8px] bg-gradient-to-b from-transparent via-neutral-800 to-transparent absolute z-0 will-change-transform"
         ></motion.div>
 
         <div className=" overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)]">

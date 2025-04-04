@@ -36,16 +36,19 @@ const Pricing = async () => {
   if (!pricingDataResponse || pricingDataResponse.length === 0) return "";
 
   // Prepare projects with synchronous child components
-  const projects = pricingDataResponse.map((doc) => ({
-    header: doc.price_header,
-    description: doc.price_info,
-    features: <FeaturesSync features={doc.price_features} />,
-    amount: <AmountSync amount={doc.price_per_hour} />,
-    link: `#${doc.price_link}`,
-  }));
+  const projects = pricingDataResponse
+    .slice()
+    .reverse()
+    .map((doc) => ({
+      header: doc.price_header,
+      description: doc.price_info,
+      features: <FeaturesSync features={doc.price_features} />,
+      amount: <AmountSync amount={doc.price_per_hour} />,
+      link: `#${doc.price_link}`,
+    }));
 
   return (
-    <div className="flex flex-col lg:max-w-[52rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[3rem]">
+    <div className="flex flex-col lg:max-w-[50rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[3rem]">
       {/* Pricing Header */}
       <div className="grid grid-cols-1 lg:grid-cols-2 justify-between text-white mb-[40px] lg:mb-[88px]">
         <div className="bg-slate-800 no-underline group w-[8rem] relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6 text-white inline-block">
@@ -95,7 +98,7 @@ const Step = ({ title }: { title: string }) => {
   return (
     <li className="flex gap-2 items-start">
       <CheckIcon />
-      <p className="text-white">{title}</p>
+      <p className="text-white m-1">{title}</p>
     </li>
   );
 };

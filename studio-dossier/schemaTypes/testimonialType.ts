@@ -8,8 +8,7 @@ export const testimonialType = defineType({
     defineField({
       name: 'testimonial_quote',
       title: 'Testimonial Quote',
-      type: 'array',
-      of: [{type: 'block'}],
+      type: 'text',
       validation: (rule) => rule.required(),
     }),
     defineField({
