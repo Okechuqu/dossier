@@ -145,7 +145,7 @@ const Profile = async () => {
             href={`tel:${detail.socials.tel}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-gray-900 border-gray-900 rounded-full glass"
+            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-blue-600 border-blue-800 rounded-full glass"
           >
             <IconPhoneCall />
           </Link>
