@@ -4,6 +4,7 @@ import {
   IconBrandUpwork,
   IconBrandX,
   IconMessage2Bolt,
+  IconPhoneCall,
 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -137,6 +138,16 @@ const Profile = async () => {
             className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-gray-900 border-gray-900 rounded-full glass"
           >
             <IconBrandX />
+          </Link>
+        )}
+        {detail.socials?.tel && (
+          <Link
+            href={`tel:${detail.socials.tel}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-gray-900 border-gray-900 rounded-full glass"
+          >
+            <IconPhoneCall />
           </Link>
         )}
       </div>

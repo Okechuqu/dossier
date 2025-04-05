@@ -53,5 +53,11 @@ export const socials = defineType({
       title: 'Upwork URL',
       validation: (rule) => rule.required().uri({allowRelative: false}),
     }),
+    defineField({
+      name: 'tel',
+      type: 'string',
+      title: 'Phone Number',
+      validation: (rule) => rule.required(),
+    }),
   ],
 })
