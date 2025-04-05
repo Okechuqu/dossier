@@ -75,5 +75,15 @@ export const profileCard = defineType({
       title: 'Meta Favicon',
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'meta_x_handle',
+      type: 'string',
+      title: 'X Handle',
+    }),
+    defineField({
+      name: 'meta_site_url',
+      type: 'string',
+      title: 'Site URL',
+    }),
   ],
 })
