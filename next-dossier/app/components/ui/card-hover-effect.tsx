@@ -20,16 +20,21 @@ export const HoverEffect = ({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div className={cn("grid grid-cols-1 md:grid-cols-2  py-1", className)}>
+    <div
+      className={cn(
+        "grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 py-1",
+        className
+      )}
+    >
       {items.map((item, idx) => (
         <Link
           href={item?.link}
           key={idx}
-          className="relative group  block p-2 h-full w-full"
+          className="relative group block p-1 md:p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
           onClick={(e) => {
-            e.preventDefault(); // Prevent default anchor behavior
+            e.preventDefault();
             const target = document.querySelector(item?.link);
             if (target) {
               target.scrollIntoView({ behavior: "smooth" });
@@ -39,7 +44,7 @@ export const HoverEffect = ({
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
+                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-2xl md:rounded-3xl"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{
@@ -54,7 +59,7 @@ export const HoverEffect = ({
             )}
           </AnimatePresence>
           <Card>
-            <div className="flex flex-row items-center justify-between w-full">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full gap-2 md:gap-4">
               <CardTitle className="flex-1">{item.header}</CardTitle>
               <CardDescription className="flex-1 whitespace-pre-line">
                 {item.description}
@@ -79,15 +84,15 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-gray-900 border border-green-500 dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
+        "rounded-xl md:rounded-2xl h-full w-full p-3 md:p-4 overflow-hidden bg-gray-900 border border-green-500 dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
         className
       )}
     >
-      <div className="md:relative absolute z-50 flex flex-col">
-        <div className="p-4">{children}</div>
+      <div className="relative z-50 flex flex-col">
+        <div className="p-2 md:p-4">{children}</div>
         <button
           type="button"
-          className="bg-green-500 text-black hover:text-gray-700 uppercase rounded-3xl p-2 mt-[3rem]"
+          className="bg-green-500 text-black hover:text-gray-700 uppercase rounded-2xl md:rounded-3xl py-2 px-3 md:p-2 mt-4 md:mt-[3rem] text-sm md:text-base"
         >
           Pick this package
         </button>
@@ -95,6 +100,7 @@ export const Card = ({
     </div>
   );
 };
+
 export const CardTitle = ({
   className,
   children,
@@ -103,11 +109,17 @@ export const CardTitle = ({
   children: React.ReactNode;
 }) => {
   return (
-    <h4 className={cn("text-zinc-100 text-3xl tracking-wide", className)}>
+    <h4
+      className={cn(
+        "text-zinc-100 text-xl md:text-3xl tracking-wide",
+        className
+      )}
+    >
       {children}
     </h4>
   );
 };
+
 export const CardDescription = ({
   className,
   children,
@@ -118,7 +130,7 @@ export const CardDescription = ({
   return (
     <p
       className={cn(
-        " text-zinc-400 tracking-wide leading-relaxed text-end text-sm",
+        "text-zinc-400 tracking-wide leading-relaxed text-end text-xs md:text-sm",
         className
       )}
     >
@@ -135,9 +147,14 @@ export const CardAmount = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className={cn("text-zinc-100 tracking-wide mt-4", className)}>
+    <div
+      className={cn(
+        "text-zinc-100 tracking-wide mt-2 md:mt-4 text-sm md:text-base",
+        className
+      )}
+    >
       {children}
-      <hr />
+      <hr className="my-2 md:my-3" />
     </div>
   );
 };
@@ -152,7 +169,7 @@ const CardFeatures = ({
   return (
     <div
       className={cn(
-        "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
+        "mt-4 md:mt-8 text-zinc-400 tracking-wide leading-relaxed text-xs md:text-sm",
         className
       )}
     >
