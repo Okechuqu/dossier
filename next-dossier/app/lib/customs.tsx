@@ -34,7 +34,7 @@ const customComponents: PortableTextComponents = {
     normal: ({ children }: { children?: React.ReactNode }) => {
       const content = typeof children === "string" ? children.trim() : children;
       return (
-        <p className={`text-base leading-relaxed ${content ? "my-2" : "my-0"}`}>
+        <p className={`text-xl leading-relaxed ${content ? "my-2" : "my-0"}`}>
           {content}
         </p>
       );
