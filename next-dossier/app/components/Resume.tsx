@@ -14,6 +14,7 @@ const RESUME_QUERY = `*[
 ] {
   timeline_title,
   timeline[]->{
+    _createdAt,
     timeline_role,
     timeline_organization,
     timeline_content,
@@ -25,11 +26,16 @@ const RESUME_QUERY = `*[
 
 const TITLE_QUERY = `*[
   _type == "title"
-] | order(_createdAt desc) [0]`;
+] {
+  _createdAt,
+  resume_title,
+  resume_title_span
+} | order(_createdAt desc) [0]`;
 
 const options = { next: { revalidate: 30 } };
 
 interface TitleDataDocument {
+  _createdAt: string;
   resume_title: string;
   resume_title_span: string;
 }
@@ -37,6 +43,7 @@ interface TitleDataDocument {
 interface ResumeDataDocument {
   timeline_title: string; // This is from the resume document itself
   timeline: Array<{
+    _createdAt: string;
     timeline_role: string;
     timeline_organization: string;
     timeline_content: PortableTextBlock[];
@@ -61,50 +68,60 @@ const Resume = async () => {
   }
 
   // For each resume document, use its timeline_title and map over its timeline array.
-  // Since the timeline field is an array of referenced resumeData documents, we can display each one.
-  const timelineData = resumeDataResponse.map((doc) => ({
-    title: doc.timeline_title,
-    content: (
-      <div className="ml-[5rem]">
-        {doc.timeline?.map((item, index) => (
-          <div key={index}>
-            {item.timeline_role && (
-              <h1 className="md:text-3xl text-base font-normal mb-2 capitalize">
-                {item.timeline_role}
-              </h1>
-            )}
-            {item.timeline_organization && (
-              <p className="text-sm font-normal mb-8 text-gray-400 capitalize">
-                {item.timeline_organization}
-              </p>
-            )}
-            <div className="text-sm font-normal mb-8 text-gray-400">
-              {item.timeline_content ? (
-                <CustomPortableText value={item.timeline_content} />
-              ) : null}
-            </div>
-            {item.timeline_image && item.timeline_image.length > 0 && (
-              <div className="grid grid-cols-2 gap-4">
-                {item.timeline_image.map((image, imgIndex) => {
-                  const imageUrl = urlFor(image)?.url() || image.asset.url;
-                  return (
-                    <Image
-                      key={imgIndex}
-                      src={imageUrl}
-                      alt={`Timeline Image ${imgIndex + 1}`}
-                      width={500}
-                      height={500}
-                      className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,42,53,0.06),0_1px_1px_rgba(0,0,0,0.05),0_0_0_1px_rgba(34,42,53,0.04),0_0_4px_rgba(34,42,53,0.08),0_16px_68px_rgba(47,48,55,0.05),0_1px_0_rgba(255,255,255,0.1)_inset"
-                    />
-                  );
-                })}
+  // Timeline items are sorted by creation date (most recent first).
+  // This ensures newly added items stay at the top, and updating old items doesn't change their order.
+  const timelineData = resumeDataResponse.map((doc) => {
+    // Sort timeline items by creation date (most recent first)
+    const sortedTimeline = [...(doc.timeline || [])].sort((a, b) => {
+      return (
+        new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime()
+      );
+    });
+
+    return {
+      title: doc.timeline_title,
+      content: (
+        <div className="ml-[5rem]">
+          {sortedTimeline.map((item, index) => (
+            <div key={index}>
+              {item.timeline_role && (
+                <h1 className="md:text-3xl text-base font-normal mb-2 capitalize">
+                  {item.timeline_role}
+                </h1>
+              )}
+              {item.timeline_organization && (
+                <p className="text-sm font-normal mb-8 text-gray-400 capitalize">
+                  {item.timeline_organization}
+                </p>
+              )}
+              <div className="text-sm font-normal mb-8 text-gray-400">
+                {item.timeline_content ? (
+                  <CustomPortableText value={item.timeline_content} />
+                ) : null}
               </div>
-            )}
-          </div>
-        ))}
-      </div>
-    ),
-  }));
+              {item.timeline_image && item.timeline_image.length > 0 && (
+                <div className="grid grid-cols-2 gap-4 mb-9">
+                  {item.timeline_image.map((image, imgIndex) => {
+                    const imageUrl = urlFor(image)?.url() || image.asset.url;
+                    return (
+                      <Image
+                        key={imgIndex}
+                        src={imageUrl}
+                        alt={`Timeline Image ${imgIndex + 1}`}
+                        width={500}
+                        height={500}
+                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,42,53,0.06),0_1px_1px_rgba(0,0,0,0.05),0_0_0_1px_rgba(34,42,53,0.04),0_0_4px_rgba(34,42,53,0.08),0_16px_68px_rgba(47,48,55,0.05),0_1px_0_rgba(255,255,255,0.1)_inset"
+                      />
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      ),
+    };
+  });
 
   return (
     <div
