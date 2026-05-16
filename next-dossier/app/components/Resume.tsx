@@ -12,6 +12,7 @@ import { PortableTextBlock } from "next-sanity";
 const RESUME_QUERY = `*[
   _type == "resume"
 ] {
+  _createdAt,
   timeline_title,
   timeline[]->{
     _createdAt,
@@ -41,6 +42,7 @@ interface TitleDataDocument {
 }
 
 interface ResumeDataDocument {
+  _createdAt: string;
   timeline_title: string; // This is from the resume document itself
   timeline: Array<{
     _createdAt: string;
@@ -68,9 +70,13 @@ const Resume = async () => {
   }
 
   // For each resume document, use its timeline_title and map over its timeline array.
-  // Timeline items are sorted by creation date (most recent first).
-  // This ensures newly added items stay at the top, and updating old items doesn't change their order.
-  const timelineData = resumeDataResponse.map((doc) => {
+  // Resume documents and timeline items are sorted by creation date (most recent first).
+  // This ensures 2026 stays at top, followed by 2025 and others.
+  const sortedResumeData = [...resumeDataResponse].sort((a, b) => {
+    return new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime();
+  });
+
+  const timelineData = sortedResumeData.map((doc) => {
     // Sort timeline items by creation date (most recent first)
     const sortedTimeline = [...(doc.timeline || [])].sort((a, b) => {
       return (

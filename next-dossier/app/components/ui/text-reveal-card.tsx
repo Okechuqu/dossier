@@ -31,7 +31,7 @@ export const TextRevealCard = ({
   }, []);
 
   function mouseMoveHandler(
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) {
     event.preventDefault();
 
@@ -94,7 +94,7 @@ export const TextRevealCard = ({
             style={{
               textShadow: "4px 4px 15px rgba(0,0,0,0.5)",
             }}
-            className="text-base sm:text-[3rem] py-10 font-semibold text-white bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-[3rem] py-10 font-semibold text-white bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300"
           >
             {revealText}
           </p>
@@ -110,7 +110,7 @@ export const TextRevealCard = ({
         ></motion.div>
 
         <div className=" overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)]">
-          <p className="text-base sm:text-[3rem] py-10 font-semibold bg-clip-text text-transparent bg-[#5b5b67]">
+          <p className="text-2xl sm:text-[3rem] py-10 font-semibold bg-clip-text text-transparent bg-[#5b5b67]">
             {text}
           </p>
           <MemoizedStars />

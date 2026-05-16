@@ -23,7 +23,7 @@ const Hero = async () => {
     <>
       <div className="flex flex-col lg:ml-[26rem] sm:flex-row justify-between text-white mb-6 lg:w-[63rem] -mr-[3rem]">
         <div className="no-underline group relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
-          <div className="relative flex space-x-2 items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
+          <div className="relative flex space-x-2 ml-5 items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
             <IconHome2 />
             <span className="uppercase text-xs">Introduce</span>
           </div>

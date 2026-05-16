@@ -89,6 +89,7 @@ const FloatingDockMobile = ({
       <button
         onClick={() => setOpen(!open)}
         className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center"
+        title="Toggle navigation"
       >
         <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
       </button>
@@ -110,8 +111,8 @@ const FloatingDockDesktop = ({
       onMouseMove={(e) => mouseX.set(e.pageX)}
       onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "lg:-mr-[2.5rem] md:-mr-[4rem] md:ml-[2rem] hidden flex-col md:flex py-2 rounded-[50px] bg-gray-900 border border-gray-100 lg:px-2 px-px",
-        className
+        "hidden md:flex flex-row items-center justify-center gap-2 py-2 rounded-full bg-gray-950/95 border border-white/10 px-3 shadow-2xl shadow-black/40 backdrop-blur-xl z-50",
+        className,
       )}
     >
       {items.map((item) => (
