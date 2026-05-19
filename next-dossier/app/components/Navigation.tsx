@@ -147,7 +147,7 @@ export function Sidebar() {
       <div
         className={`fixed top-0 left-0 h-full w-64 bg-gray-900 shadow-2xl transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 z-50 overflow-y-auto`}
+        } transition-transform duration-300 z-50 flex flex-col`}
       >
         {/* Sidebar Header */}
         <div className="p-4 mt-2 flex justify-between items-center border-b border-gray-700">
@@ -162,7 +162,7 @@ export function Sidebar() {
         </div>
 
         {/* Sidebar Content */}
-        <nav className="p-6">
+        <nav className="p-6 overflow-y-auto flex-1">
           <ul className="space-y-3">
             {links.map((link, i) => (
               <li key={i} className="flex flex-row items-center gap-3">
@@ -186,66 +186,66 @@ export function Sidebar() {
               </li>
             ))}
           </ul>
+        </nav>
 
-          {/* Sidebar Social Icons */}
-          <div className="flex flex-col justify-center gap-4 mt-12 pt-6 border-t border-gray-700">
-            <p className="text-sm font-semibold text-gray-200">Connect</p>
-            {socialDetail?.socials && (
-              <div className="flex flex-row gap-4">
-                {socialDetail?.socials?.facebook && (
-                  <a
-                    href={socialDetail?.socials?.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:text-blue-400 transition-colors"
-                    title="Facebook"
-                  >
-                    <IconBrandFacebookFilled size={24} />
-                  </a>
-                )}
-                {socialDetail?.socials?.instagram && (
-                  <a
-                    href={socialDetail?.socials?.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-pink-500 hover:text-pink-400 transition-colors"
-                    title="Instagram"
-                  >
-                    <IconBrandInstagramFilled size={24} />
-                  </a>
-                )}
-                {socialDetail?.socials?.tiktok && (
-                  <a
-                    href={socialDetail?.socials?.tiktok}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="TikTok"
-                    className="text-white hover:text-gray-300 transition-colors"
-                  >
-                    <IconBrandTiktokFilled size={24} />
-                  </a>
-                )}
-                {socialDetail?.socials?.x && (
-                  <a
-                    href={socialDetail?.socials?.x}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="X (Twitter)"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    <IconBrandXFilled size={24} />
-                  </a>
-                )}
-              </div>
-            )}
-          </div>
+        {/* Sidebar Social Icons */}
+        <div className="flex flex-col justify-center gap-4 px-6 py-4 border-t border-gray-700">
+          <p className="text-sm font-semibold text-gray-200">Connect</p>
+          {socialDetail?.socials && (
+            <div className="flex flex-row gap-4">
+              {socialDetail?.socials?.facebook && (
+                <a
+                  href={socialDetail?.socials?.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:text-blue-400 transition-colors"
+                  title="Facebook"
+                >
+                  <IconBrandFacebookFilled size={24} />
+                </a>
+              )}
+              {socialDetail?.socials?.instagram && (
+                <a
+                  href={socialDetail?.socials?.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-pink-500 hover:text-pink-400 transition-colors"
+                  title="Instagram"
+                >
+                  <IconBrandInstagramFilled size={24} />
+                </a>
+              )}
+              {socialDetail?.socials?.tiktok && (
+                <a
+                  href={socialDetail?.socials?.tiktok}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="TikTok"
+                  className="text-white hover:text-gray-300 transition-colors"
+                >
+                  <IconBrandTiktokFilled size={24} />
+                </a>
+              )}
+              {socialDetail?.socials?.x && (
+                <a
+                  href={socialDetail?.socials?.x}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="X (Twitter)"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  <IconBrandXFilled size={24} />
+                </a>
+              )}
+            </div>
+          )}
+        </div>
 
-          {/* Sidebar Footer */}
-          <div className="flex flex-col justify-end p-4 mt-12 pt-6 border-t border-gray-700 gap-2">
-            <p className="text-gray-400 flex gap-2 text-sm">
-              Designed with
-              <IconHeartDollar size={16} className="text-red-500" />
-            </p>
+        {/* Sidebar Footer - Fixed at Bottom */}
+        <div className="p-4 border-t border-gray-700 gap-2 flex flex-col">
+          <p className="text-gray-400 flex gap-2 text-sm">
+            Designed with
+            <IconHeartDollar size={16} className="text-red-500" /> by{" "}
             <a
               href={socialDetail?.socials?.upwork}
               target="_blank"
@@ -254,8 +254,8 @@ export function Sidebar() {
             >
               {socialDetail?.title}
             </a>
-          </div>
-        </nav>
+          </p>
+        </div>
       </div>
     </div>
   );
