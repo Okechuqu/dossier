@@ -101,7 +101,7 @@ const Navigation = () => {
       </div>
 
       {/* Floating dock visible on tablet and desktop */}
-      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 m-4 hidden md:block">
+      <div className="fixed top-0 left-1/2 lg:left-3/4 -translate-x-1/2 z-50 m-2 hidden md:block">
         <FloatingDock items={links} />
       </div>
     </nav>

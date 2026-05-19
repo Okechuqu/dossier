@@ -44,60 +44,62 @@ const Skill = async () => {
   if (!skillDataResponse || skillDataResponse.length === 0) return "";
 
   return (
-    <div
-      id="skills"
-      className="flex flex-col lg:max-w-[50rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[2rem]"
-    >
-      <div className="flex flex-row justify-between text-white mb-[40px] lg:mb-[88px]">
-        <div className="bg-slate-800 no-underline group  relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6  text-white inline-block">
-          <div className="relative flex space-x-2 items-center z-10 rounded-full bg-gray-900  py-2 px-4 ring-1 ring-white/10 ">
+    <>
+      <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
+        <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
+          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
             <IconCube3dSphere />
             <p></p>
             <span className="uppercase text-xs">My Skill</span>
           </div>
         </div>
       </div>
-      <h1 className="md:text-5xl text-xl mb-2 md:mb-6">
-        {titleDataResponse.skill_title}{" "}
-        <span className="text-green-500">
-          {" "}
-          {titleDataResponse.skill_title_span}
-        </span>
-      </h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {skillDataResponse
-          .slice()
-          .reverse()
-          .map((skill, i) => {
-            const skillImage = skill.skill_image
-              ? urlFor(skill.skill_image)?.url() || skill.skill_image.asset.url
-              : null;
-
-            return (
-              <div
-                key={i}
-                className="flex flex-col gap-2 items-center justify-center"
-              >
-                <div className="glass items-center justify-center flex flex-col text-white rounded-full h-48 w-36 md:h-[15rem] md:w-[12rem] border border-slate-800 hover:border-green-500">
-                  {skillImage && (
-                    <Image
-                      src={skillImage}
-                      width={80}
-                      height={80}
-                      alt={skill.skill_title}
-                      className="mb-6 rounded-3xl"
-                    />
-                  )}
-                  <p className="text-green-500 text-4xl mt-2">
-                    {skill.skill_rate}%
-                  </p>
+      <div
+        id="skills"
+        className="flex flex-col w-full lg:max-w-[38rem] xl:max-w-[52rem] 2xl:max-w-[99rem] mx-auto px-6 lg:px-0 animate-fade-down text-white"
+      >
+        <h1 className="md:text-5xl text-xl mb-2 md:mb-6">
+          {titleDataResponse.skill_title}{" "}
+          <span className="text-green-500">
+            {" "}
+            {titleDataResponse.skill_title_span}
+          </span>
+        </h1>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pb-5">
+          {skillDataResponse
+            .slice()
+            .reverse()
+            .map((skill, i) => {
+              const skillImage = skill.skill_image
+                ? urlFor(skill.skill_image)?.url() ||
+                  skill.skill_image.asset.url
+                : null;
+              return (
+                <div
+                  key={i}
+                  className="flex flex-col gap-2 items-center justify-center"
+                >
+                  <div className="glass items-center justify-center flex flex-col text-white rounded-full h-48 w-36 md:h-[15rem] md:w-[12rem] border border-slate-800 hover:border-green-500">
+                    {skillImage && (
+                      <Image
+                        src={skillImage}
+                        width={80}
+                        height={80}
+                        alt={skill.skill_title}
+                        className="mb-6 rounded-3xl"
+                      />
+                    )}
+                    <p className="text-green-500 text-4xl mt-2">
+                      {skill.skill_rate}%
+                    </p>
+                  </div>
+                  <p className="text-white capitalize">{skill.skill_title}</p>
                 </div>
-                <p className="text-white capitalize">{skill.skill_title}</p>
-              </div>
-            );
-          })}
+              );
+            })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

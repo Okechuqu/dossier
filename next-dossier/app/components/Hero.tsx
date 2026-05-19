@@ -1,7 +1,6 @@
 import React from "react";
 import { TextRevealCard, TextRevealCardTitle } from "./ui/text-reveal-card";
 import { IconArrowDownToArc, IconHome2 } from "@tabler/icons-react";
-// import { Sidebar } from "./Navigation";
 import { client } from "../client";
 import { SanityDocument } from "next-sanity";
 import CustomPortableText from "../lib/customs";
@@ -21,22 +20,17 @@ const Hero = async () => {
 
   return (
     <>
-      <div className="flex flex-col lg:ml-[26rem] sm:flex-row justify-between text-white mb-6 lg:w-[63rem] -mr-[3rem]">
-        <div className="no-underline group relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
-          <div className="relative flex space-x-2 ml-5 items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
+      <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
+        <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
+          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
             <IconHome2 />
             <span className="uppercase text-xs">Introduce</span>
           </div>
         </div>
-        {/* <div className="hidden lg:flex fixed top-8 right-8 no-underline group cursor-pointer  shadow-2xl shadow-zinc-900 rounded-full p-px text-xs leading-6 text-white">
-          <div className="relative flex space-x-2 items-center hover:ring-green-500 z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10">
-            <Sidebar />
-          </div>
-        </div> */}
       </div>
       <div
         id="hero"
-        className="flex flex-col lg:max-w-[50rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white mr-[3rem]"
+        className="flex flex-col lg:max-w-[38rem] xl:max-w-[55rem] 2xl:max-w-[99rem] w-full mx-auto px-6 lg:px-0 animate-fade-down text-white"
       >
         <TextRevealCard
           text={`${data.hero_text}`}

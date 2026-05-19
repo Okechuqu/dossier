@@ -16,32 +16,34 @@ const About = async () => {
   // Ensure data exists before rendering
   if (!data) return "";
   return (
-    <div
-      id="about"
-      className="flex flex-col lg:max-w-[49rem] w-full lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white my-[3rem]"
-    >
-      <div className="justify-between text-white mb-[40px] lg:mb-[88px]">
-        <div className="bg-slate-800 no-underline group  relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6  text-white inline-block">
-          <div className="relative flex space-x-2 items-center z-10 rounded-full bg-gray-900  py-2 px-4 ring-1 ring-white/10 ">
+    <>
+      <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
+        <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
+          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
             <IconUser />
             <span className="uppercase text-xs">About</span>
           </div>
         </div>
       </div>
-      <div className="">
-        <h1 className="md:text-6xl text-xl mb-6">
-          {data.about_title ?? "Untitled"}
-          <span className="text-green-500"> better story</span>
-        </h1>
-        <div className="text-base text-white/80">
-          {data.body ? (
-            <CustomPortableText value={data.body} />
-          ) : (
-            "No content available."
-          )}
+      <div
+        id="about"
+        className="flex flex-col w-full lg:max-w-[38rem] xl:max-w-[52rem] 2xl:max-w-[99rem] mx-auto px-6 lg:px-0 animate-fade-down text-white mb-[3rem]"
+      >
+        <div>
+          <h1 className="md:text-6xl text-xl mb-6">
+            {data.about_title ?? "Untitled"}
+            <span className="text-green-500"> better story</span>
+          </h1>
+          <div className="text-base text-white/80">
+            {data.body ? (
+              <CustomPortableText value={data.body} />
+            ) : (
+              "No content available."
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

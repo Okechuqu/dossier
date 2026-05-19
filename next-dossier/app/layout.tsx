@@ -43,7 +43,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const faviconUrl = data.meta_favicon
     ? urlFor(data.meta_favicon)?.url()
     : null;
-  const site = data.meta_x_handle || "@YourTwitterHandle"; // Replace with your X handle
+  const site = data.meta_x_handle || "@okechuqu"; // Replace with your X handle
   const url = data.meta_site_url || "https://dossier-oec.vercel.app/"; // Replace with your actual site URL
 
   return {

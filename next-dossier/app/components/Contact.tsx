@@ -88,7 +88,7 @@ const ContactForm: React.FC = () => {
       const removeTimer = setTimeout(() => setAlert(null), 5000);
       const progressInterval = setInterval(
         () => setProgress((prev) => Math.max(prev - 1, 0)),
-        45
+        45,
       );
 
       return () => {
@@ -105,7 +105,7 @@ const ContactForm: React.FC = () => {
   };
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -148,179 +148,169 @@ const ContactForm: React.FC = () => {
   if (!profileDataResponse) return "";
 
   return (
-    <section
-      id="contact"
-      className="flex flex-col w-full lg:max-w-[49rem] lg:ml-[26rem] lg:mx-auto px-6 lg:px-0 animate-fade-down text-white lg:mt-12 sm:mt-[50rem] md:mt-36"
-    >
-      <div className="flex justify-between items-center mb-10 lg:mb-22">
-        <div className="bg-slate-800 no-underline group relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6 text-white inline-block">
-          <div className="relative flex items-center gap-2 z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10">
+    <>
+      <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
+        <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0 lg:mt-[15rem] xl:mt-40 sm:mt-[50rem] md:mt-36">
+          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
             <IconMessage2 size={18} />
             <span className="uppercase text-xs">Contact</span>
           </div>
         </div>
       </div>
-
-      <div className="w-full">
-        <h1 className="text-2xl md:text-5xl mb-2 md:mb-6">
-          {titleDataResponse && (
-            <>
-              {titleDataResponse.contact_title}{" "}
-              <span className="text-green-500">
-                {titleDataResponse.contact_title_span}{" "}
-              </span>
-            </>
-          )}
-        </h1>
-
-        {profileDataResponse && profileDataResponse?.email && (
-          <Link
-            href={`mailto:${profileDataResponse.email}`}
-            className="text-lg md:text-2xl text-neutral-400 hover:text-neutral-300 transition-colors"
-          >
-            {profileDataResponse.email}
-          </Link>
-        )}
-
-        <form className="my-8" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <LabelInputContainer>
-              <Label htmlFor="name">Full Name</Label>
-              <Input
-                id="name"
-                name="name"
-                placeholder="Tyler"
-                type="text"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </LabelInputContainer>
-
-            <LabelInputContainer>
-              <Label htmlFor="email">Email Address</Label>
-              <Input
-                id="email"
-                name="email"
-                placeholder="example@mail.com"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </LabelInputContainer>
-
-            <LabelInputContainer>
-              <Label htmlFor="phone">Phone</Label>
-              <Input
-                id="phone"
-                name="phone"
-                placeholder="Your phone number"
-                type="tel"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-            </LabelInputContainer>
-
-            <LabelInputContainer>
-              <Label htmlFor="subject">Subject</Label>
-              <select
-                id="subject"
-                name="subject"
-                className={FORM_CONTROL_STYLES}
-                value={formData.subject}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select a subject</option>
-                <option value="tutoring">Tutoring</option>
-                <option value="web_development">Web Development</option>
-                <option value="ai/ml">AI/ML</option>
-                <option value="marketing">Marketing</option>
-                <option value="other">Other</option>
-              </select>
-            </LabelInputContainer>
-          </div>
-
-          <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-6 h-px w-full" />
-
-          <div className="space-y-4">
-            <LabelInputContainer>
-              <Label htmlFor="budget">Your Budget (Optional)</Label>
-              <div className="relative">
-                <span className="absolute left-3 top-[2rem] transform -translate-y-1/2 text-gray-100 font-semibold">
-                  $
+      <section
+        id="contact"
+        className="flex flex-col w-full lg:max-w-[38rem] xl:max-w-[52rem] 2xl:max-w-[99rem] mx-auto px-6 lg:px-0 animate-fade-down text-white"
+      >
+        <div className="w-full">
+          <h1 className="text-2xl md:text-5xl mb-2 md:mb-6">
+            {titleDataResponse && (
+              <>
+                {titleDataResponse.contact_title}{" "}
+                <span className="text-green-500">
+                  {titleDataResponse.contact_title_span}{" "}
                 </span>
+              </>
+            )}
+          </h1>
+          {profileDataResponse && profileDataResponse?.email && (
+            <Link
+              href={`mailto:${profileDataResponse.email}`}
+              className="text-lg md:text-2xl text-neutral-400 hover:text-neutral-300 transition-colors"
+            >
+              {profileDataResponse.email}
+            </Link>
+          )}
+          <form className="my-8" onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <LabelInputContainer>
+                <Label htmlFor="name">Full Name</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  placeholder="Tyler"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </LabelInputContainer>
+              <LabelInputContainer>
+                <Label htmlFor="email">Email Address</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  placeholder="example@mail.com"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </LabelInputContainer>
+              <LabelInputContainer>
+                <Label htmlFor="phone">Phone</Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  placeholder="Your phone number"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </LabelInputContainer>
+              <LabelInputContainer>
+                <Label htmlFor="subject">Subject</Label>
+                <select
+                  id="subject"
+                  name="subject"
+                  className={FORM_CONTROL_STYLES}
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select a subject</option>
+                  <option value="tutoring">Tutoring</option>
+                  <option value="web_development">Web Development</option>
+                  <option value="ai/ml">AI/ML</option>
+                  <option value="marketing">Marketing</option>
+                  <option value="other">Other</option>
+                </select>
+              </LabelInputContainer>
+            </div>
+            <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-6 h-px w-full" />
+            <div className="space-y-4">
+              <LabelInputContainer>
+                <Label htmlFor="budget">Your Budget (Optional)</Label>
+                <div className="relative">
+                  <span className="absolute left-3 top-[2rem] transform -translate-y-1/2 text-gray-100 font-semibold">
+                    $
+                  </span>
+                </div>
+                <Input
+                  id="budget"
+                  name="budget"
+                  placeholder={
+                    formData.budget === 0 ? "Budget for your project" : ""
+                  }
+                  type="number"
+                  value={formData.budget === 0 ? "" : formData.budget}
+                  onChange={handleChange}
+                  className="pl-6"
+                />
+              </LabelInputContainer>
+              <LabelInputContainer>
+                <Label htmlFor="message">Message</Label>
+                <textarea
+                  id="message"
+                  name="message"
+                  className={`${FORM_CONTROL_STYLES} min-h-[8rem] resize-y`}
+                  placeholder="Write your message here..."
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                />
+              </LabelInputContainer>
+            </div>
+            <button
+              className={`${BUTTON_GRADIENT} w-full max-w-[15rem] text-black rounded-3xl h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] mt-8 transition-opacity hover:opacity-90 disabled:opacity-70`}
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? "Sending..." : "Send Message"}
+              <BottomGradient />
+            </button>
+          </form>
+          {/* Alert Notification */}
+          {alert && (
+            <div
+              className={`fixed top-5 right-5 w-80 px-4 py-3 rounded-lg text-white shadow-lg transition-opacity duration-300 ${
+                fadeOut ? "opacity-0" : "opacity-100"
+              } ${alert.type === "success" ? "bg-green-500" : "bg-red-600"}`}
+            >
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm">{alert.message}</span>
+                <button
+                  onClick={closeAlert}
+                  className="text-white hover:text-gray-200 transition-colors"
+                  aria-label="Close alert"
+                >
+                  <IconX size={18} />
+                </button>
               </div>
-
-              <Input
-                id="budget"
-                name="budget"
-                placeholder={
-                  formData.budget === 0 ? "Budget for your project" : ""
-                }
-                type="number"
-                value={formData.budget === 0 ? "" : formData.budget}
-                onChange={handleChange}
-                className="pl-6"
-              />
-            </LabelInputContainer>
-
-            <LabelInputContainer>
-              <Label htmlFor="message">Message</Label>
-              <textarea
-                id="message"
-                name="message"
-                className={`${FORM_CONTROL_STYLES} min-h-[8rem] resize-y`}
-                placeholder="Write your message here..."
-                value={formData.message}
-                onChange={handleChange}
-                required
-              />
-            </LabelInputContainer>
-          </div>
-
-          <button
-            className={`${BUTTON_GRADIENT} w-full max-w-[15rem] text-black rounded-3xl h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] mt-8 transition-opacity hover:opacity-90 disabled:opacity-70`}
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? "Sending..." : "Send Message"}
-            <BottomGradient />
-          </button>
-        </form>
-
-        {/* Alert Notification */}
-        {alert && (
-          <div
-            className={`fixed top-5 right-5 w-80 px-4 py-3 rounded-lg text-white shadow-lg transition-opacity duration-300 ${
-              fadeOut ? "opacity-0" : "opacity-100"
-            } ${alert.type === "success" ? "bg-green-500" : "bg-red-600"}`}
-          >
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm">{alert.message}</span>
-              <button
-                onClick={closeAlert}
-                className="text-white hover:text-gray-200 transition-colors"
-                aria-label="Close alert"
-              >
-                <IconX size={18} />
-              </button>
+              <div className="w-full h-1 bg-white/30 rounded overflow-hidden">
+                <div
+                  className="h-full bg-gray-500 transition-transform duration-75 ease-linear"
+                  style={{
+                    transform: `scaleX(${progress / 90})`,
+                    transformOrigin: "right",
+                  }}
+                />
+              </div>
             </div>
-            <div className="w-full h-1 bg-white/30 rounded overflow-hidden">
-              <div
-                className="h-full bg-gray-500 transition-transform duration-75 ease-linear"
-                style={{
-                  transform: `scaleX(${progress / 90})`,
-                  transformOrigin: "right",
-                }}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-    </section>
+          )}
+        </div>
+      </section>
+    </>
   );
 };
 

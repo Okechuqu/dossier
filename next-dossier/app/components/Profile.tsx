@@ -57,7 +57,7 @@ const Profile = async () => {
   if (!detail) return "";
 
   return (
-    <div className="m-2 lg:fixed lg:left-8 lg:top-1/2 lg:transform lg:-translate-y-1/2 h-[41rem] lg:w-[22rem] glass rounded-2xl p-8 mb-8 flex flex-col items-center justify-center animate-fade-up inset-0">
+    <div className="m-2 lg:fixed lg:left-2 lg:top-1/2 lg:transform lg:-translate-y-1/2 h-[41rem] lg:w-[22rem] glass rounded-2xl p-8 mb-8 flex flex-col items-center justify-center animate-fade-up inset-0">
       <div className="flex flex-row gap-8 text-white items-center w-full justify-between mb-5">
         <h1 className="relative text-3xl text-start font-bold">
           {detail.title}

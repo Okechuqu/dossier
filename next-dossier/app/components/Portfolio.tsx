@@ -42,7 +42,7 @@ const Portfolio = () => {
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
   const [portfolioData, setPortfolioData] = useState<PortfolioDataDocument[]>(
-    []
+    [],
   );
   const [titleData, setTitleData] = useState<TitleDataDocument | null>(null);
   const [active, setActive] = useState<{
@@ -59,12 +59,12 @@ const Portfolio = () => {
       const portfolioRes = await client.fetch<PortfolioDataDocument[]>(
         PORTFOLIO_QUERY,
         {},
-        options
+        options,
       );
       const titleRes = await client.fetch<TitleDataDocument>(
         TITLE_QUERY,
         {},
-        options
+        options,
       );
       setPortfolioData(portfolioRes);
       setTitleData(titleRes);
@@ -119,18 +119,18 @@ const Portfolio = () => {
           />
         )}
       </AnimatePresence>
-      <div
-        id="portfolio"
-        className="flex flex-col lg:max-w-[50rem] w-full lg:ml-[26rem] lg:mx-auto px-4 md:px-6 lg:px-0 animate-fade-down text-white my-8 md:my-[2rem]"
-      >
-        <div className="flex flex-row justify-between text-white mb-8 md:mb-[40px] lg:mb-[88px]">
-          <div className="bg-slate-800 no-underline group relative shadow-2xl shadow-zinc-900 rounded-full p-px leading-6 text-white inline-block">
-            <div className="relative flex space-x-2 items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10">
-              <IconGridPattern />
-              <span className="uppercase text-xs">Portfolio</span>
-            </div>
+      <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
+        <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
+          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
+            <IconGridPattern />
+            <span className="uppercase text-xs">Portfolio</span>
           </div>
         </div>
+      </div>
+      <div
+        id="portfolio"
+        className="flex flex-col w-full lg:max-w-[38rem] xl:max-w-[52rem] 2xl:max-w-[99rem] mx-auto px-6 lg:px-0 animate-fade-down text-white"
+      >
         <div>
           {titleData && (
             <h1 className="text-3xl md:text-5xl mb-4 md:mb-6">
@@ -197,7 +197,7 @@ const Portfolio = () => {
             </div>
           )}
         </AnimatePresence>
-        <ul className="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-start gap-4 md:gap-6">
+        <ul className="mb-5 max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-start gap-4 md:gap-6">
           {cards
             .slice()
             .reverse()
