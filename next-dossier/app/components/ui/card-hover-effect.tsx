@@ -23,7 +23,7 @@ export const HoverEffect = ({
     <div
       className={cn(
         "grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 py-1",
-        className
+        className,
       )}
     >
       {items.map((item, idx) => (
@@ -85,14 +85,14 @@ export const Card = ({
     <div
       className={cn(
         "rounded-xl md:rounded-2xl h-full w-full p-3 md:p-4 overflow-hidden bg-gray-900 border border-green-500 dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
-        className
+        className,
       )}
     >
-      <div className="relative z-50 flex flex-col">
+      <div className="relative z-50 flex h-full flex-col">
         <div className="p-2 md:p-4">{children}</div>
         <button
           type="button"
-          className="bg-green-500 text-black hover:text-gray-700 uppercase rounded-2xl md:rounded-3xl py-2 px-3 md:p-2 mt-4 md:mt-[3rem] text-sm md:text-base"
+          className="bg-green-500 text-black hover:text-gray-700 uppercase rounded-2xl md:rounded-3xl py-2 px-3 md:p-2 mt-auto text-sm md:text-base"
         >
           Pick this package
         </button>
@@ -112,7 +112,7 @@ export const CardTitle = ({
     <h4
       className={cn(
         "text-zinc-100 text-xl md:text-3xl tracking-wide",
-        className
+        className,
       )}
     >
       {children}
@@ -131,7 +131,7 @@ export const CardDescription = ({
     <p
       className={cn(
         "text-zinc-400 tracking-wide leading-relaxed text-end text-xs md:text-sm",
-        className
+        className,
       )}
     >
       {children}
@@ -150,7 +150,7 @@ export const CardAmount = ({
     <div
       className={cn(
         "text-zinc-100 tracking-wide mt-2 md:mt-4 text-sm md:text-base",
-        className
+        className,
       )}
     >
       {children}
@@ -170,7 +170,7 @@ const CardFeatures = ({
     <div
       className={cn(
         "mt-4 md:mt-8 text-zinc-400 tracking-wide leading-relaxed text-xs md:text-sm",
-        className
+        className,
       )}
     >
       {children}
