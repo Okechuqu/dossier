@@ -22,7 +22,7 @@ const Hero = async () => {
     <>
       <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
         <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
-          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
+          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-950 py-2 px-4 ring-1 ring-[#d4bd89] w-[9rem]">
             <IconHome2 />
             <span className="uppercase text-xs">Introduce</span>
           </div>
@@ -52,7 +52,7 @@ const Hero = async () => {
           {/* "My Projects" Floating to End */}
           <div className="flex justify-center sm:justify-end mb-8">
             <SmoothScrollLink
-              className="relative w-32 h-32 md:w-[10rem] md:h-[10rem] rounded-full border border-gray-700 flex items-center justify-center"
+              className="relative w-32 h-32 md:w-[10rem] md:h-[10rem] rounded-full border border-[#d4bd89] flex items-center justify-center"
               href={"#portfolio"}
             >
               <IconArrowDownToArc />
@@ -83,7 +83,7 @@ const Hero = async () => {
           {/* Statistics Section Responsive */}
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-center sm:items-start">
             <div className="text-center sm:text-left">
-              <h1 className="text-green-500 text-4xl sm:text-5xl">
+              <h1 className="text-[#a37735] text-4xl sm:text-5xl">
                 {data.hero_years_of_experience}+
               </h1>
               <p className="uppercase text-gray-100 text-sm sm:text-base">
@@ -91,7 +91,7 @@ const Hero = async () => {
               </p>
             </div>
             <div className="text-center sm:text-left">
-              <h1 className="text-green-500 text-4xl sm:text-5xl">
+              <h1 className="text-[#a37735] text-4xl sm:text-5xl">
                 {data.hero_completed_projects}+
               </h1>
               <p className="uppercase text-gray-100 text-sm sm:text-base">

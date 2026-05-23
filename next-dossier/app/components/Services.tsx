@@ -44,7 +44,7 @@ const Services = async () => {
     <>
       <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
         <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
-          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
+          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-950 py-2 px-4 ring-1 ring-[#d4bd89] w-[9rem]">
             <IconTerminal />
             <p></p>
             <span className="uppercase text-xs">Services</span>
@@ -57,7 +57,7 @@ const Services = async () => {
       >
         <h1 className="md:text-5xl text-xl mb-2 md:mb-6">
           {titleDataResponse.services_title}{" "}
-          <span className="text-green-500">
+          <span className="text-[#a37735]">
             {titleDataResponse.services_title_span}
           </span>
         </h1>
@@ -98,8 +98,8 @@ const Feature = ({
         <div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-gradient-to-b from-neutral-100 dark:from-neutral-800 to-transparent pointer-events-none" />
       )}
       <div className="text-lg font-bold mb-2 relative z-10 px-10">
-        <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-300 dark:bg-neutral-700 group-hover/feature:bg-green-500 transition-all duration-200 origin-center" />
-        <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-green-800 dark:text-neutral-100">
+        <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-300 dark:bg-neutral-700 group-hover/feature:bg-[#a37735] transition-all duration-200 origin-center" />
+        <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-[#a37735] dark:text-neutral-100">
           {heading}
         </span>
       </div>

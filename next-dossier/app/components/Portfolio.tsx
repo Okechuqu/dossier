@@ -121,7 +121,7 @@ const Portfolio = () => {
       </AnimatePresence>
       <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
         <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
-          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
+          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-950 py-2 px-4 ring-1 ring-[#d4bd89] w-[9rem]">
             <IconGridPattern />
             <span className="uppercase text-xs">Portfolio</span>
           </div>
@@ -135,7 +135,7 @@ const Portfolio = () => {
           {titleData && (
             <h1 className="text-3xl md:text-5xl mb-4 md:mb-6">
               {titleData.portfolio_title}{" "}
-              <span className="text-green-500">
+              <span className="text-[#a37735]">
                 {titleData.portfolio_title_span}
               </span>
             </h1>
@@ -179,7 +179,7 @@ const Portfolio = () => {
                     <motion.a
                       href={active.ctaLink}
                       target="_blank"
-                      className="px-3 py-2 text-xs md:text-sm rounded-full font-bold bg-green-500 text-white whitespace-nowrap"
+                      className="px-3 py-2 text-xs md:text-sm rounded-full font-bold bg-[#a37735] text-white whitespace-nowrap"
                     >
                       {active.ctaText}
                     </motion.a>
@@ -207,7 +207,7 @@ const Portfolio = () => {
                   layoutId={`card-${card.stack}-${id}`}
                   key={index}
                   onClick={() => setActive(card)}
-                  className="p-4 flex flex-col glass hover:border-green-500 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+                  className="p-4 flex flex-col glass hover:border-[#a37735] dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
                 >
                   <div className="flex gap-4 flex-col w-full">
                     <motion.div layoutId={`image-${card.stack}-${id}`}>

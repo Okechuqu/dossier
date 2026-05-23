@@ -50,7 +50,7 @@ const Pricing = async () => {
     <>
       <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
         <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
-          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
+          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-950 py-2 px-4 ring-1 ring-[#d4bd89] w-[9rem]">
             <IconMessage size={18} />
             <span className="uppercase text-xs">Pricing</span>
           </div>
@@ -61,7 +61,7 @@ const Pricing = async () => {
 
         <h1 className="text-3xl md:text-5xl mb-4 md:mb-6">
           {titleDataResponse.pricing_title}{" "}
-          <span className="text-green-500">
+          <span className="text-[#a37735]">
             {titleDataResponse.pricing_title_span}
           </span>
         </h1>
@@ -88,7 +88,7 @@ const FeaturesSync = ({ features }: { features: string[] }) => {
 const AmountSync = ({ amount }: { amount: string }) => {
   return (
     <div className="mt-6 md:mt-[3rem]">
-      <h1 className="text-2xl md:text-4xl text-green-500 mb-1">
+      <h1 className="text-2xl md:text-4xl text-[#a37735] mb-1">
         ${amount}
         <span className="text-gray-500 text-lg md:text-xl">/hour</span>
       </h1>

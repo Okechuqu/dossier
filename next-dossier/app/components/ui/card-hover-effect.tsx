@@ -84,7 +84,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-xl md:rounded-2xl h-full w-full p-3 md:p-4 overflow-hidden bg-gray-900 border border-green-500 dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
+        "rounded-xl md:rounded-2xl h-full w-full p-3 md:p-4 overflow-hidden bg-gray-950 border border-[#a37735] dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
         className,
       )}
     >
@@ -92,7 +92,7 @@ export const Card = ({
         <div className="p-2 md:p-4">{children}</div>
         <button
           type="button"
-          className="bg-green-500 text-black hover:text-gray-700 uppercase rounded-2xl md:rounded-3xl py-2 px-3 md:p-2 mt-auto text-sm md:text-base"
+          className="bg-[#a37735] text-black hover:text-gray-700 uppercase rounded-2xl md:rounded-3xl py-2 px-3 md:p-2 mt-auto text-sm md:text-base"
         >
           Pick this package
         </button>

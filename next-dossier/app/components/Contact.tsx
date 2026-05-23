@@ -40,7 +40,7 @@ const FORM_CONTROL_STYLES =
   "flex h-10 w-full border-none bg-black text-white rounded-xl dark:bg-zinc-800 shadow-input px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 dark:focus-visible:ring-neutral-600 disabled:cursor-not-allowed disabled:opacity-50 dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] group-hover/input:shadow-none transition duration-400";
 
 const BUTTON_GRADIENT =
-  "bg-gradient-to-br uppercase relative group/btn from-green-600 to-green-200";
+  "bg-gradient-to-br uppercase relative group/btn from-[#a37735] to-[#d7b874]";
 
 const ContactForm: React.FC = () => {
   const [profileDataResponse, setProfileDataResponse] =
@@ -151,7 +151,7 @@ const ContactForm: React.FC = () => {
     <>
       <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
         <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0 lg:mt-[15rem] xl:mt-40 sm:mt-[50rem] md:mt-36">
-          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
+          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-950 py-2 px-4 ring-1 ring-[#d4bd89] w-[9rem]">
             <IconMessage2 size={18} />
             <span className="uppercase text-xs">Contact</span>
           </div>
@@ -166,7 +166,7 @@ const ContactForm: React.FC = () => {
             {titleDataResponse && (
               <>
                 {titleDataResponse.contact_title}{" "}
-                <span className="text-green-500">
+                <span className="text-[#a37735]">
                   {titleDataResponse.contact_title_span}{" "}
                 </span>
               </>
@@ -285,7 +285,7 @@ const ContactForm: React.FC = () => {
             <div
               className={`fixed top-5 right-5 w-80 px-4 py-3 rounded-lg text-white shadow-lg transition-opacity duration-300 ${
                 fadeOut ? "opacity-0" : "opacity-100"
-              } ${alert.type === "success" ? "bg-green-500" : "bg-red-600"}`}
+              } ${alert.type === "success" ? "bg-[#a37735]" : "bg-red-600"}`}
             >
               <div className="flex justify-between items-center mb-2">
                 <span className="text-sm">{alert.message}</span>

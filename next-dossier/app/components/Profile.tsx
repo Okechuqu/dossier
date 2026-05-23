@@ -125,7 +125,7 @@ const Profile = async () => {
             href={detail.socials.upwork}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-green-500 border-green-500 rounded-full glass"
+            className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-[#e5c274] border-[#e5c274] rounded-full glass"
           >
             <IconBrandUpwork />
           </Link>
@@ -154,7 +154,7 @@ const Profile = async () => {
 
       {/* Hire Me Button */}
       <SmoothScrollLink href="#contact">
-        <button className="flex flex-row items-center justify-center gap-2 bg-gradient-to-br uppercase relative group/btn from-green-600 to-green-200 w-[15rem] text-black rounded-3xl h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] mt-8">
+        <button className="flex flex-row items-center justify-center gap-2 bg-gradient-to-br uppercase relative group/btn from-[#a37735] to-[#d7b874] w-[15rem] text-black rounded-3xl h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] mt-8">
           <IconMessage2Bolt />
           Hire me!
         </button>

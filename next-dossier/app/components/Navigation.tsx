@@ -35,21 +35,21 @@ const links = [
   {
     title: "Home",
     icon: (
-      <IconHome className="w-full text-neutral-500 dark:text-neutral-300 hover:text-green-500" />
+      <IconHome className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
     ),
     href: "#hero",
   },
   {
     title: "About",
     icon: (
-      <IconUser className="w-full text-neutral-500 dark:text-neutral-300 hover:text-green-500" />
+      <IconUser className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
     ),
     href: "#about",
   },
   {
     title: "Resume",
     icon: (
-      <IconBriefcase className="w-full text-neutral-500 dark:text-neutral-300 hover:text-green-500" />
+      <IconBriefcase className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
     ),
     href: "#resume",
   },
@@ -57,7 +57,7 @@ const links = [
   {
     title: "Services",
     icon: (
-      <IconTerminal2 className="w-full text-neutral-500 dark:text-neutral-300 hover:text-green-500" />
+      <IconTerminal2 className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
     ),
     href: "#services",
   },
@@ -65,28 +65,28 @@ const links = [
   {
     title: "Skills",
     icon: (
-      <IconCube3dSphere className="w-full text-neutral-500 dark:text-neutral-300 hover:text-green-500" />
+      <IconCube3dSphere className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
     ),
     href: "#skills",
   },
   {
     title: "Portfolio",
     icon: (
-      <IconGridDots className="w-full text-neutral-500 dark:text-neutral-300 hover:text-green-500" />
+      <IconGridDots className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
     ),
     href: "#portfolio",
   },
   {
     title: "Testimonial",
     icon: (
-      <IconMessage className="w-full text-neutral-500 dark:text-neutral-300 hover:text-green-500" />
+      <IconMessage className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
     ),
     href: "#testimonial",
   },
   {
     title: "Contact",
     icon: (
-      <IconMail className="w-full text-neutral-500 dark:text-neutral-300 hover:text-green-500" />
+      <IconMail className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
     ),
     href: "#contact",
   },
@@ -129,7 +129,7 @@ export function Sidebar() {
       {/* Menu Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="p-2 text-gray-50 hover:text-green-500 hover:bg-gray-800 rounded-lg transition-colors"
+        className="p-2 text-gray-50 hover:text-[#a37735] hover:bg-gray-800 rounded-lg transition-colors"
         aria-label="Open menu"
       >
         <IconMenu2 size={28} />
@@ -138,14 +138,14 @@ export function Sidebar() {
       {/* Sidebar Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="fixed inset-0 bg-gray-950/95 bg-opacity-50 z-40"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-gray-900 shadow-2xl transform ${
+        className={`fixed top-0 left-0 h-full w-64 bg-gray-950 shadow-2xl transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 z-50 flex flex-col`}
       >
@@ -154,7 +154,7 @@ export function Sidebar() {
           <h2 className="text-lg text-white font-semibold">Menu</h2>
           <button
             onClick={() => setIsOpen(false)}
-            className="text-gray-50 hover:text-green-500 transition-colors"
+            className="text-gray-50 hover:text-[#a37735] transition-colors"
             aria-label="Close menu"
           >
             <IconX size={28} />
@@ -166,12 +166,12 @@ export function Sidebar() {
           <ul className="space-y-3">
             {links.map((link, i) => (
               <li key={i} className="flex flex-row items-center gap-3">
-                <span className="text-neutral-400 hover:text-green-500 transition-colors">
+                <span className="text-neutral-400 hover:text-[#a37735] transition-colors">
                   {link.icon}
                 </span>
                 <a
                   href={link.href}
-                  className="block text-gray-50 hover:text-green-500 transition-colors"
+                  className="block text-gray-50 hover:text-[#a37735] transition-colors"
                   onClick={(e) => {
                     e.preventDefault();
                     const target = document.querySelector(link.href);
@@ -250,7 +250,7 @@ export function Sidebar() {
               href={socialDetail?.socials?.upwork}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-green-500 hover:text-green-400 font-semibold text-sm transition-colors"
+              className="text-[#a37735] hover:text-[#a37735] font-semibold text-sm transition-colors"
             >
               {socialDetail?.title}
             </a>

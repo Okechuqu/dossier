@@ -34,7 +34,7 @@
     @apply bg-background text-foreground antialiased;
   }
   .glass {
-    @apply backdrop-blur-lg bg-white/5 border border-white/10;
+    @apply backdrop-blur-lg bg-white/5 border border-[#d4bd89];
   }
   :root {
     --background: 0 0% 100%;

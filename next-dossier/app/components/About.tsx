@@ -19,7 +19,7 @@ const About = async () => {
     <>
       <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
         <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0">
-          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-900 py-2 px-4 ring-1 ring-white/10 w-[9rem]">
+          <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-950 py-2 px-4 ring-1 ring-[#d4bd89] w-[9rem]">
             <IconUser />
             <span className="uppercase text-xs">About</span>
           </div>
@@ -32,7 +32,7 @@ const About = async () => {
         <div>
           <h1 className="md:text-6xl text-xl mb-6">
             {data.about_title ?? "Untitled"}
-            <span className="text-green-500"> better story</span>
+            <span className="text-[#a37735]"> better story</span>
           </h1>
           <div className="text-base text-white/80">
             {data.body ? (
