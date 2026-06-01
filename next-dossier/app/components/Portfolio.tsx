@@ -105,7 +105,10 @@ const Portfolio = () => {
   useOutsideClick(ref, () => setActive(null));
 
   // Ensure portfolio data exists before rendering
-  if (!portfolioData || portfolioData.length === 0) return "";
+  // In production the client fetch may return empty initially or fail without a token.
+  // Render a minimal placeholder with the `id` so anchor links like `#portfolio` still work.
+  if (!portfolioData || portfolioData.length === 0)
+    return <div id="portfolio" className="w-full h-2" />;
 
   return (
     <>

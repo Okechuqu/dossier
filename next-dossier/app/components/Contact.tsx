@@ -145,7 +145,9 @@ const ContactForm: React.FC = () => {
   };
 
   // Ensure Profile data exists before rendering
-  if (!profileDataResponse) return "";
+  // Render a minimal placeholder section so `#contact` anchor exists in production
+  if (!profileDataResponse)
+    return <section id="contact" className="w-full px-6 lg:px-0 py-8" />;
 
   return (
     <>
