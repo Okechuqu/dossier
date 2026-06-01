@@ -10,26 +10,22 @@ import imageUrlBuilder from "@sanity/image-url";
 import CustomPortableText from "../lib/customs";
 import { PortableTextBlock } from "next-sanity";
 
-const PORTFOLIO_QUERY = `*[
-  _type == "portfolio"
-] | order(_createdAt desc)`;
-const TITLE_QUERY = `*[
-  _type == "title"
-] | order(_createdAt desc) [0]`;
-
-const options = { next: { revalidate: 30 } };
-
-interface TitleDataDocument {
+export interface TitleDataDocument {
   portfolio_title: string;
   portfolio_title_span: string;
 }
 
-interface PortfolioDataDocument {
+export interface PortfolioDataDocument {
   portfolio_stack: string[];
   portfolio_description: PortableTextBlock[];
   portfolio_link: string;
   portfolio_image?: Array<{ asset: { url: string } }>;
   portfolio_title: string;
+}
+
+interface PortfolioProps {
+  portfolioData: PortfolioDataDocument[];
+  titleData: TitleDataDocument | null;
 }
 
 const { projectId, dataset } = client.config();
@@ -38,13 +34,9 @@ const urlFor = (source: SanityImageSource) =>
     ? imageUrlBuilder({ projectId, dataset }).image(source)
     : null;
 
-const Portfolio = () => {
+const Portfolio = ({ portfolioData, titleData }: PortfolioProps) => {
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
-  const [portfolioData, setPortfolioData] = useState<PortfolioDataDocument[]>(
-    [],
-  );
-  const [titleData, setTitleData] = useState<TitleDataDocument | null>(null);
   const [active, setActive] = useState<{
     title: string;
     stack: string[];
@@ -53,24 +45,6 @@ const Portfolio = () => {
     ctaLink: string;
     content: () => JSX.Element;
   } | null>(null);
-
-  useEffect(() => {
-    async function fetchData() {
-      const portfolioRes = await client.fetch<PortfolioDataDocument[]>(
-        PORTFOLIO_QUERY,
-        {},
-        options,
-      );
-      const titleRes = await client.fetch<TitleDataDocument>(
-        TITLE_QUERY,
-        {},
-        options,
-      );
-      setPortfolioData(portfolioRes);
-      setTitleData(titleRes);
-    }
-    fetchData();
-  }, []);
 
   const cards = portfolioData.map((doc) => {
     const images =
@@ -104,9 +78,6 @@ const Portfolio = () => {
 
   useOutsideClick(ref, () => setActive(null));
 
-  // Ensure portfolio data exists before rendering
-  // In production the client fetch may return empty initially or fail without a token.
-  // Render a minimal placeholder with the `id` so anchor links like `#portfolio` still work.
   if (!portfolioData || portfolioData.length === 0)
     return <div id="portfolio" className="w-full h-2" />;
 

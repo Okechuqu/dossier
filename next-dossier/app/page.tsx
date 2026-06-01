@@ -1,8 +1,8 @@
 import About from "./components/About";
-import ContactForm from "./components/Contact";
+import ContactSection from "./components/ContactSection";
 import Hero from "./components/Hero";
 import Navigation from "./components/Navigation";
-import Portfolio from "./components/Portfolio";
+import PortfolioSection from "./components/PortfolioSection";
 import Pricing from "./components/Pricing";
 import Profile from "./components/Profile";
 import Resume from "./components/Resume";
@@ -22,10 +22,10 @@ export default function Home() {
         <Resume />
         <Services />
         <Skill />
-        <Portfolio />
+        <PortfolioSection />
         <Testimonial />
         <Pricing />
-        <ContactForm />
+        <ContactSection />
       </div>
       <ScrollToTop />
     </div>

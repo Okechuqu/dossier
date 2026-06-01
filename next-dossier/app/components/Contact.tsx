@@ -7,16 +7,6 @@ import { IconMessage2, IconX } from "@tabler/icons-react";
 import Link from "next/link";
 import { client } from "../client";
 
-const TITLE_QUERY = `*[
-  _type == "title"
-] | order(_createdAt desc) [0]`;
-
-const PROFILE_QUERY = `*[
-  _type == "profile"
-] | order(_createdAt desc) [0]`;
-
-const options = { next: { revalidate: 30 } };
-
 interface TitleDataDocument {
   contact_title: string;
   contact_title_span: string;
@@ -42,11 +32,15 @@ const FORM_CONTROL_STYLES =
 const BUTTON_GRADIENT =
   "bg-gradient-to-br uppercase relative group/btn from-[#a37735] to-[#d7b874]";
 
-const ContactForm: React.FC = () => {
-  const [profileDataResponse, setProfileDataResponse] =
-    useState<ProfileDataDocument | null>(null);
-  const [titleDataResponse, setTitleDataResponse] =
-    useState<TitleDataDocument | null>(null);
+interface ContactFormProps {
+  profileDataResponse: ProfileDataDocument | null;
+  titleDataResponse: TitleDataDocument | null;
+}
+
+const ContactForm: React.FC<ContactFormProps> = ({
+  profileDataResponse,
+  titleDataResponse,
+}) => {
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
@@ -55,23 +49,6 @@ const ContactForm: React.FC = () => {
     budget: 0,
     message: "",
   });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [profileData, titleData] = await Promise.all([
-          client.fetch<ProfileDataDocument>(PROFILE_QUERY, {}, options),
-          client.fetch<TitleDataDocument>(TITLE_QUERY, {}, options),
-        ]);
-        setProfileDataResponse(profileData);
-        setTitleDataResponse(titleData);
-      } catch (error) {
-        console.error("Failed to fetch data", error);
-      }
-    };
-
-    fetchData();
-  }, []);
   const [loading, setLoading] = useState<boolean>(false);
   const [alert, setAlert] = useState<{
     message: string;
@@ -145,7 +122,7 @@ const ContactForm: React.FC = () => {
   };
 
   // Ensure Profile data exists before rendering
-  // Render a minimal placeholder section so `#contact` anchor exists in production
+  // Render a minimal placeholder section with the id so `#contact` works in production.
   if (!profileDataResponse)
     return <section id="contact" className="w-full px-6 lg:px-0 py-8" />;
 
@@ -225,6 +202,7 @@ const ContactForm: React.FC = () => {
                 <select
                   id="subject"
                   name="subject"
+                  title="Subject"
                   className={FORM_CONTROL_STYLES}
                   value={formData.subject}
                   onChange={handleChange}
