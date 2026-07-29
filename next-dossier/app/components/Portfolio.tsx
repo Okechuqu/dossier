@@ -173,41 +173,41 @@ const Portfolio = ({ portfolioData, titleData }: PortfolioProps) => {
         </AnimatePresence>
         <ul className="mb-5 max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-start gap-4 md:gap-6">
           {cards.map((card, index) => (
-              <div className="flex flex-col relative" key={index}>
-                <motion.div
-                  layoutId={`card-${card.stack}-${id}`}
-                  key={index}
-                  onClick={() => setActive(card)}
-                  className="p-4 flex flex-col glass hover:border-[#a37735] dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
-                >
-                  <div className="flex gap-4 flex-col w-full">
-                    <motion.div layoutId={`image-${card.stack}-${id}`}>
-                      <Image
-                        width={100}
-                        height={100}
-                        src={card.images[0]}
-                        alt={card.title}
-                        className="h-48 md:h-60 w-full rounded-lg object-cover object-top"
-                      />
-                    </motion.div>
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {card.stack.map((stack: string) => (
-                        <motion.h3
-                          layoutId={`stack-${stack}-${id}`}
-                          className="font-medium border rounded-full px-3 text-neutral-100 bg-gray-800 dark:text-neutral-200 text-center md:text-left text-sm md:text-base"
-                          key={stack}
-                        >
-                          {stack}
-                        </motion.h3>
-                      ))}
-                    </div>
+            <div className="flex flex-col relative" key={index}>
+              <motion.div
+                layoutId={`card-${card.stack}-${id}`}
+                key={index}
+                onClick={() => setActive(card)}
+                className="p-4 flex flex-col glass hover:border-[#a37735] dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
+              >
+                <div className="flex gap-4 flex-col w-full">
+                  <motion.div layoutId={`image-${card.stack}-${id}`}>
+                    <Image
+                      width={100}
+                      height={100}
+                      src={card.images[0]}
+                      alt={card.title}
+                      className="h-48 md:h-60 w-full rounded-lg object-cover object-top"
+                    />
+                  </motion.div>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {card.stack.map((stack: string) => (
+                      <motion.h3
+                        layoutId={`stack-${stack}-${id}`}
+                        className="font-medium border rounded-full px-3 text-neutral-100 bg-gray-800 dark:text-neutral-200 text-center md:text-left text-sm md:text-base"
+                        key={stack}
+                      >
+                        {stack}
+                      </motion.h3>
+                    ))}
                   </div>
-                </motion.div>
-                <p className="mt-2 text-lg md:text-2xl hover:underline uppercase">
-                  {card.title}
-                </p>
-              </div>
-            ))}
+                </div>
+              </motion.div>
+              <p className="mt-2 text-lg md:text-2xl hover:underline uppercase">
+                {card.title}
+              </p>
+            </div>
+          ))}
         </ul>
       </div>
     </>

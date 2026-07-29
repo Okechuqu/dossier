@@ -1,0 +1,293 @@
+# Dossier
+
+A modern, content-managed portfolio website built with Next.js, TypeScript, Tailwind CSS, Framer Motion, and Sanity. Dossier presents a professional profile, experience, services, skills, projects, testimonials, pricing, and contact information through a responsive single-page interface.
+
+The repository contains two applications:
+
+- `next-dossier` — the public-facing Next.js portfolio
+- `studio-dossier` — the Sanity Studio used to manage portfolio content
+
+## Features
+
+- Responsive, mobile-first portfolio layout
+- Content managed through Sanity Studio
+- Incremental content refresh with a 30-second revalidation interval
+- Animated navigation, cards, modals, testimonials, and page transitions
+- Project gallery with image support and newest-first ordering
+- Resume and professional-experience timeline
+- Services, skills, pricing, and testimonial sections
+- Contact form that stores submissions in Sanity
+- Dynamic page metadata and web app manifest
+- Generated sitemap and `robots.txt`
+- Optimized images through Next.js
+- Strongly typed React components and Sanity data models
+
+## Technology Stack
+
+| Area | Technology |
+| --- | --- |
+| Frontend | Next.js 14 App Router, React 18, TypeScript |
+| Styling | Tailwind CSS, custom CSS |
+| Animation | Framer Motion, Motion, Animate.css |
+| UI | Radix UI, Aceternity-inspired components, Tabler and Lucide icons |
+| CMS | Sanity Studio 3 |
+| Content queries | GROQ through `next-sanity` |
+| Image delivery | Sanity Image URL builder and Next.js Image |
+| SEO | Next.js Metadata API and `next-sitemap` |
+
+## Repository Structure
+
+```text
+dossier/
+├── next-dossier/                 # Public Next.js application
+│   ├── app/
+│   │   ├── components/           # Portfolio sections and reusable UI
+│   │   ├── lib/                  # Portable Text and navigation utilities
+│   │   ├── client.ts             # Sanity client configuration
+│   │   ├── globals.css           # Global styles
+│   │   ├── layout.tsx            # Root layout and metadata
+│   │   └── page.tsx              # Portfolio page composition
+│   ├── next.config.mjs           # Next.js and remote image settings
+│   ├── next-sitemap.config.js    # Sitemap configuration
+│   └── package.json
+├── studio-dossier/               # Sanity content studio
+│   ├── schemaTypes/              # Content schemas
+│   ├── sanity.config.ts          # Studio configuration
+│   ├── sanity.cli.ts             # Sanity CLI configuration
+│   └── package.json
+└── README.md
+```
+
+## Content Model
+
+Sanity provides document types for the principal areas of the site:
+
+| Schema | Purpose |
+| --- | --- |
+| `profile` | Personal details, profile image, email, and social information |
+| `hero` | Introductory heading and hero content |
+| `about` | Biography and supporting content |
+| `resume` | Education and professional experience |
+| `service` | Services offered |
+| `skill` | Skills and technical capabilities |
+| `portfolio` | Projects, technology stacks, links, descriptions, and images |
+| `testimonial` | Client or collaborator testimonials |
+| `pricing` | Service packages and included features |
+| `title` | Shared section headings and SEO metadata |
+| `contactMe` | Contact-form submissions |
+
+Most single-record sections use the most recently created Sanity document. Collection sections are rendered from their corresponding document lists. Portfolio documents are queried by `_createdAt desc`, so newly added projects appear first.
+
+## Prerequisites
+
+Install the following before running the project:
+
+- [Node.js](https://nodejs.org/) 18.17 or newer; Node.js 20 LTS is recommended
+- npm 9 or newer
+- A [Sanity](https://www.sanity.io/) account with access to the configured project
+
+The applications currently use Sanity project `kx25p8c1` and the `production` dataset. Update the project ID and dataset in both applications if you are connecting the repository to a different Sanity project:
+
+- `next-dossier/app/client.ts`
+- `studio-dossier/sanity.config.ts`
+- `studio-dossier/sanity.cli.ts`
+
+## Installation
+
+Clone the repository and install each application's dependencies:
+
+```bash
+git clone <repository-url>
+cd dossier
+
+cd next-dossier
+npm ci
+
+cd ../studio-dossier
+npm ci
+```
+
+`npm ci` uses the committed lockfiles to produce repeatable installations. Use `npm install` instead when intentionally updating dependencies.
+
+## Environment Configuration
+
+Create `next-dossier/.env.local`:
+
+```dotenv
+NEXT_PUBLIC_SANITY_API_TOKEN=your_sanity_token
+```
+
+The frontend can read public Sanity content without a token when the dataset is public. In the current implementation, however, the contact form creates `contactMe` documents directly from the browser and therefore requires a token with permission to create those documents.
+
+> [!CAUTION]
+> Variables prefixed with `NEXT_PUBLIC_` are included in browser-delivered JavaScript. Never place a broadly privileged Sanity token in this variable. For production, move contact submission into a server-side Next.js route or Server Action, store the token in a non-public environment variable, validate the submitted fields, and add abuse protection such as rate limiting or CAPTCHA.
+
+Add the following origins to the Sanity project's CORS settings when needed:
+
+- `http://localhost:3000` for local frontend development
+- The production frontend domain
+- Any preview deployment domains used by the team
+
+Only enable credentialed requests for origins that genuinely require them.
+
+## Running Locally
+
+Run the frontend and Studio in separate terminals.
+
+### Frontend
+
+```bash
+cd next-dossier
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+### Sanity Studio
+
+```bash
+cd studio-dossier
+npm run dev
+```
+
+Sanity normally opens the Studio at [http://localhost:3333](http://localhost:3333). Sign in with an account that has access to the configured Sanity project.
+
+Create and publish the relevant content documents in Studio. The frontend caches Sanity queries for up to 30 seconds, so published changes may not appear immediately.
+
+## Available Scripts
+
+### `next-dossier`
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Next.js development server |
+| `npm run build` | Create a production build and generate sitemap files |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Run the configured Next.js lint command |
+
+### `studio-dossier`
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start Sanity Studio in development mode |
+| `npm run start` | Start the Studio |
+| `npm run build` | Create a production Studio build |
+| `npm run deploy` | Deploy the Studio to Sanity hosting |
+| `npm run deploy-graphql` | Deploy Sanity's GraphQL API |
+
+## Content Management Workflow
+
+1. Start Sanity Studio and sign in.
+2. Create or edit the appropriate document.
+3. Complete all required fields and upload any necessary images.
+4. Publish the document.
+5. Allow up to 30 seconds for the frontend's cached query to refresh.
+
+To add a project, create a `Portfolio` document with its title, description, technology stack, destination link, and images. The latest created project is displayed first.
+
+Portfolio images are position-based:
+
+1. The first image is displayed on the portfolio card.
+2. The second image is displayed when the project modal opens.
+
+The second image is optional. When a project has only one image, that image is used for both the card and modal. Additional images are currently stored by Sanity but are not displayed by the frontend. Image order can be changed by reordering the images in the Portfolio document.
+
+Contact-form entries are stored as `Contact` documents in Sanity Studio. Treat these submissions as personal data and restrict Studio access accordingly.
+
+## Production Builds
+
+Validate both applications before deployment:
+
+```bash
+cd next-dossier
+npm run build
+
+cd ../studio-dossier
+npm run build
+```
+
+The frontend build also runs `next-sitemap`. Before deploying to another domain, update `siteUrl` in `next-dossier/next-sitemap.config.js`.
+
+## Deployment
+
+### Frontend
+
+The Next.js application can be deployed to Vercel or any platform that supports Next.js:
+
+1. Configure the deployment root directory as `next-dossier`.
+2. Add the required environment variables.
+3. Deploy the application.
+4. Add the deployed URL to Sanity's allowed CORS origins.
+5. Update the sitemap `siteUrl` if the production domain differs from the configured value.
+
+### Sanity Studio
+
+Deploy the Studio with:
+
+```bash
+cd studio-dossier
+npm run deploy
+```
+
+The configured Sanity Studio hostname is `dossier`. A different hostname can be set in `studio-dossier/sanity.cli.ts`.
+
+## Customization
+
+- Edit the page composition in `next-dossier/app/page.tsx`.
+- Add or update sections in `next-dossier/app/components`.
+- Change global colors, typography, and animations in `next-dossier/app/globals.css` and `tailwind.config.ts`.
+- Update structured content definitions in `studio-dossier/schemaTypes`.
+- Update metadata behavior in `next-dossier/app/layout.tsx`.
+- Change sitemap settings in `next-dossier/next-sitemap.config.js`.
+
+When changing a schema, restart Sanity Studio and update the corresponding TypeScript interfaces and GROQ queries in the frontend.
+
+## Troubleshooting
+
+### Content does not appear
+
+- Confirm the document has been published rather than left as a draft.
+- Verify that the frontend and Studio use the same project ID and dataset.
+- Wait at least 30 seconds for query revalidation.
+- Check the browser and server consoles for Sanity query errors.
+
+### Images fail to load
+
+- Confirm that the image asset is published and referenced by its document.
+- Review the remote image rules in `next-dossier/next.config.mjs`.
+- Restart the frontend after changing Next.js configuration.
+
+### Contact submissions fail
+
+- Confirm that `NEXT_PUBLIC_SANITY_API_TOKEN` is present in `next-dossier/.env.local`.
+- Verify that the token can create `contactMe` documents.
+- Confirm that the frontend origin is allowed in Sanity's CORS settings.
+- Review the browser console and network response for the rejected request.
+
+### Dependency commands are unavailable
+
+Run `npm ci` in the application directory where the command is being executed. Each application has its own `package.json` and dependencies.
+
+## Security Notes
+
+- Do not commit `.env.local` or API tokens.
+- Use least-privilege Sanity roles and tokens.
+- Prefer a server-side endpoint for contact submissions.
+- Validate and sanitize user-supplied contact data on the server.
+- Add spam and rate-limit protection before exposing the form publicly.
+- Periodically review and remove contact submissions that are no longer needed.
+- Restrict production CORS origins to trusted domains.
+
+## Contributing
+
+1. Create a branch for the change.
+2. Make focused updates in the relevant application.
+3. Run the appropriate build and lint checks.
+4. Verify affected content flows through Sanity Studio and the frontend.
+5. Submit a pull request describing the behavior and validation performed.
+
+Keep schema and frontend changes synchronized whenever a content field is added, removed, or renamed.
+
+## License
+
+The Studio package is currently marked `UNLICENSED`, and no repository-level open-source license is included. All rights are reserved unless the project owner provides a separate license.

@@ -7,9 +7,11 @@ export const portfolioType = defineType({
   fields: [
     defineField({
       name: 'portfolio_image',
-      title: 'Portfolio Image',
+      title: 'Portfolio Images',
       type: 'array',
       of: [{type: 'portfolio_image'}],
+      description:
+        'Add the card image first and the modal image second. If only one image is added, it will be used in both places.',
       validation: (rule) => rule.required(),
     }),
     defineField({
