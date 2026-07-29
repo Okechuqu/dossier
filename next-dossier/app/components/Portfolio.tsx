@@ -172,10 +172,7 @@ const Portfolio = ({ portfolioData, titleData }: PortfolioProps) => {
           )}
         </AnimatePresence>
         <ul className="mb-5 max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 items-start gap-4 md:gap-6">
-          {cards
-            .slice()
-            .reverse()
-            .map((card, index) => (
+          {cards.map((card, index) => (
               <div className="flex flex-col relative" key={index}>
                 <motion.div
                   layoutId={`card-${card.stack}-${id}`}
