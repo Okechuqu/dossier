@@ -13,7 +13,7 @@ logs
 # Coverage directory used by testing tools
 coverage
 
-
+manifest.json
 
 # Dotenv and similar local-only files
 *.local

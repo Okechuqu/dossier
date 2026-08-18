@@ -129,10 +129,12 @@ const Portfolio = ({ portfolioData, titleData }: PortfolioProps) => {
                 >
                   <Image
                     priority
-                    width={500}
-                    height={300}
+                    width={1200}
+                    height={720}
                     src={active.images[1] ? active.images[1] : active.images[0]}
                     alt={active.title}
+                    sizes="(min-width: 768px) 500px, 95vw"
+                    quality={95}
                     className="w-full h-40 md:h-48 object-cover object-top"
                   />
                 </motion.div>
@@ -183,10 +185,12 @@ const Portfolio = ({ portfolioData, titleData }: PortfolioProps) => {
                 <div className="flex gap-4 flex-col w-full">
                   <motion.div layoutId={`image-${card.stack}-${id}`}>
                     <Image
-                      width={100}
-                      height={100}
+                      width={1200}
+                      height={720}
                       src={card.images[0]}
                       alt={card.title}
+                      sizes="(min-width: 1536px) 750px, (min-width: 1280px) 390px, (min-width: 1024px) 275px, (min-width: 768px) 45vw, 100vw"
+                      quality={95}
                       className="h-48 md:h-60 w-full rounded-lg object-cover object-top"
                     />
                   </motion.div>

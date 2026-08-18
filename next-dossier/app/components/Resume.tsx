@@ -1,5 +1,4 @@
 import { IconBriefcase } from "@tabler/icons-react";
-import Image from "next/image";
 import React from "react";
 import { Timeline } from "./ui/timeline";
 import { client } from "../client";
@@ -7,6 +6,7 @@ import CustomPortableText from "../lib/customs";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import imageUrlBuilder from "@sanity/image-url";
 import { PortableTextBlock } from "next-sanity";
+import ResumeImageGallery from "./ResumeImageGallery";
 
 // Query that fetches the resume document with its timeline references dereferenced
 const RESUME_QUERY = `*[
@@ -106,21 +106,11 @@ const Resume = async () => {
                 ) : null}
               </div>
               {item.timeline_image && item.timeline_image.length > 0 && (
-                <div className="grid grid-cols-2 gap-4 mb-9">
-                  {item.timeline_image.map((image, imgIndex) => {
-                    const imageUrl = urlFor(image)?.url() || image.asset.url;
-                    return (
-                      <Image
-                        key={imgIndex}
-                        src={imageUrl}
-                        alt={`Timeline Image ${imgIndex + 1}`}
-                        width={500}
-                        height={500}
-                        className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,42,53,0.06),0_1px_1px_rgba(0,0,0,0.05),0_0_0_1px_rgba(34,42,53,0.04),0_0_4px_rgba(34,42,53,0.08),0_16px_68px_rgba(47,48,55,0.05),0_1px_0_rgba(255,255,255,0.1)_inset"
-                      />
-                    );
-                  })}
-                </div>
+                <ResumeImageGallery
+                  images={item.timeline_image.map(
+                    (image) => urlFor(image)?.url() || image.asset.url,
+                  )}
+                />
               )}
             </div>
           ))}

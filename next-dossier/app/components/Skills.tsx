@@ -86,6 +86,8 @@ const Skill = async () => {
                         width={80}
                         height={80}
                         alt={skill.skill_title}
+                        sizes="80px"
+                        quality={95}
                         className="mb-6 rounded-3xl"
                       />
                     )}

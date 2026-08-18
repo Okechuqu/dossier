@@ -71,9 +71,11 @@ const Profile = async () => {
         {postImageUrl && (
           <Image
             src={postImageUrl}
-            width={180}
-            height={180}
+            width={600}
+            height={600}
             alt={detail.title || "Profile"}
+            sizes="240px"
+            quality={95}
             className="w-full h-full object-cover"
             loading="lazy"
           />
