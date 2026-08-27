@@ -58,13 +58,13 @@ const Skill = async () => {
         id="skills"
         className="flex flex-col w-full lg:max-w-[38rem] xl:max-w-[52rem] 2xl:max-w-[99rem] mx-auto px-6 lg:px-0 animate-fade-down text-white"
       >
-        <h1 className="md:text-5xl text-xl mb-2 md:mb-6">
+        <h2 className="md:text-5xl text-xl mb-2 md:mb-6">
           {titleDataResponse.skill_title}{" "}
           <span className="text-[#a37735]">
             {" "}
             {titleDataResponse.skill_title_span}
           </span>
-        </h1>
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pb-5">
           {skillDataResponse
             .slice()

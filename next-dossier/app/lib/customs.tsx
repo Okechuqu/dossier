@@ -41,7 +41,7 @@ const customComponents: PortableTextComponents = {
     },
 
     h1: ({ children }: { children?: React.ReactNode }) => (
-      <h1 className="text-4xl font-bold my-4">{children}</h1>
+      <h3 className="text-4xl font-bold my-4">{children}</h3>
     ),
     h2: ({ children }: { children?: React.ReactNode }) => (
       <h2 className="text-3xl font-bold my-4">{children}</h2>

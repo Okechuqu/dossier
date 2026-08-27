@@ -91,9 +91,9 @@ const Resume = async () => {
           {sortedTimeline.map((item, index) => (
             <div key={index}>
               {item.timeline_role && (
-                <h1 className="md:text-3xl text-base font-normal mb-2 capitalize">
+                <h3 className="md:text-3xl text-base font-normal mb-2 capitalize">
                   {item.timeline_role}
-                </h1>
+                </h3>
               )}
               {item.timeline_organization && (
                 <p className="text-sm font-normal mb-8 text-gray-400 capitalize">
@@ -107,6 +107,7 @@ const Resume = async () => {
               </div>
               {item.timeline_image && item.timeline_image.length > 0 && (
                 <ResumeImageGallery
+                  description={`${item.timeline_role} at ${item.timeline_organization}`}
                   images={item.timeline_image.map(
                     (image) => urlFor(image)?.url() || image.asset.url,
                   )}
@@ -134,12 +135,12 @@ const Resume = async () => {
         id="resume"
         className="flex flex-col w-full lg:max-w-[38rem] xl:max-w-[52rem] 2xl:max-w-[99rem] mx-auto px-6 lg:px-0 animate-fade-down text-white"
       >
-        <h1 className="md:text-5xl text-xl">
+        <h2 className="md:text-5xl text-xl">
           {titleDataResponse.resume_title}{" "}
           <span className="text-[#a37735]">
             {titleDataResponse.resume_title_span}
           </span>
-        </h1>
+        </h2>
         <Timeline data={timelineData} />
       </div>
     </>

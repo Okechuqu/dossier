@@ -5,7 +5,6 @@ import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
 import { IconMessage2, IconX } from "@tabler/icons-react";
 import Link from "next/link";
-import { client } from "../client";
 
 interface TitleDataDocument {
   contact_title: string;
@@ -19,10 +18,10 @@ interface ProfileDataDocument {
 interface ContactFormData {
   name: string;
   email: string;
-  phone: string;
-  subject: string;
-  budget: number;
+  projectType: string;
+  budgetRange: string;
   message: string;
+  website: string;
 }
 
 // Style constants
@@ -44,10 +43,10 @@ const ContactForm: React.FC<ContactFormProps> = ({
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
-    phone: "",
-    subject: "",
-    budget: 0,
+    projectType: "",
+    budgetRange: "",
     message: "",
+    website: "",
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [alert, setAlert] = useState<{
@@ -87,7 +86,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "budget" ? Number(value) : value,
+      [name]: value,
     }));
   };
 
@@ -97,18 +96,20 @@ const ContactForm: React.FC<ContactFormProps> = ({
     setAlert(null);
 
     try {
-      await client.create({
-        _type: "contactMe",
-        ...formData,
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
+      if (!response.ok) throw new Error("Contact request failed");
       setAlert({ message: "Message sent successfully!", type: "success" });
       setFormData({
         name: "",
         email: "",
-        phone: "",
-        subject: "",
-        budget: 0,
+        projectType: "",
+        budgetRange: "",
         message: "",
+        website: "",
       });
     } catch (err) {
       console.error("Failed to send contact form", err);
@@ -141,7 +142,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
         className="flex flex-col w-full lg:max-w-[38rem] xl:max-w-[52rem] 2xl:max-w-[99rem] mx-auto px-6 lg:px-0 animate-fade-down text-white"
       >
         <div className="w-full">
-          <h1 className="text-2xl md:text-5xl mb-2 md:mb-6">
+          <h2 className="text-2xl md:text-5xl mb-2 md:mb-6">
             {titleDataResponse && (
               <>
                 {titleDataResponse.contact_title}{" "}
@@ -150,7 +151,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 </span>
               </>
             )}
-          </h1>
+          </h2>
           {profileDataResponse && profileDataResponse?.email && (
             <Link
               href={`mailto:${profileDataResponse.email}`}
@@ -186,29 +187,17 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 />
               </LabelInputContainer>
               <LabelInputContainer>
-                <Label htmlFor="phone">Phone</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  placeholder="Your phone number"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
-              </LabelInputContainer>
-              <LabelInputContainer>
-                <Label htmlFor="subject">Subject</Label>
+                <Label htmlFor="projectType">Project type</Label>
                 <select
-                  id="subject"
-                  name="subject"
-                  title="Subject"
+                  id="projectType"
+                  name="projectType"
+                  title="Project type"
                   className={FORM_CONTROL_STYLES}
-                  value={formData.subject}
+                  value={formData.projectType}
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Select a subject</option>
+                  <option value="">Select a project type</option>
                   <option value="tutoring">Tutoring</option>
                   <option value="web_development">Web Development</option>
                   <option value="ai/ml">AI/ML</option>
@@ -220,23 +209,20 @@ const ContactForm: React.FC<ContactFormProps> = ({
             <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-6 h-px w-full" />
             <div className="space-y-4">
               <LabelInputContainer>
-                <Label htmlFor="budget">Your Budget (Optional)</Label>
-                <div className="relative">
-                  <span className="absolute left-3 top-[2rem] transform -translate-y-1/2 text-gray-100 font-semibold">
-                    $
-                  </span>
-                </div>
-                <Input
-                  id="budget"
-                  name="budget"
-                  placeholder={
-                    formData.budget === 0 ? "Budget for your project" : ""
-                  }
-                  type="number"
-                  value={formData.budget === 0 ? "" : formData.budget}
+                <Label htmlFor="budgetRange">Budget range (optional)</Label>
+                <select
+                  id="budgetRange"
+                  name="budgetRange"
+                  className={FORM_CONTROL_STYLES}
+                  value={formData.budgetRange}
                   onChange={handleChange}
-                  className="pl-6"
-                />
+                >
+                  <option value="">Prefer not to say</option>
+                  <option value="under-1000">Under $1,000</option>
+                  <option value="1000-5000">$1,000–$5,000</option>
+                  <option value="5000-10000">$5,000–$10,000</option>
+                  <option value="over-10000">Over $10,000</option>
+                </select>
               </LabelInputContainer>
               <LabelInputContainer>
                 <Label htmlFor="message">Message</Label>
@@ -250,7 +236,19 @@ const ContactForm: React.FC<ContactFormProps> = ({
                   required
                 />
               </LabelInputContainer>
+              <div className="hidden" aria-hidden="true">
+                <Label htmlFor="website">Website</Label>
+                <Input id="website" name="website" tabIndex={-1} autoComplete="off" value={formData.website} onChange={handleChange} />
+              </div>
             </div>
+            <p className="mt-6 max-w-2xl text-sm text-neutral-400">
+              By submitting, you agree that I may use these details to respond
+              to your enquiry. See the{" "}
+              <Link href="/privacy-policy" className="text-[#d7b874] underline">
+                Privacy Policy
+              </Link>{" "}
+              for retention, service providers, transfers, and your rights.
+            </p>
             <button
               className={`${BUTTON_GRADIENT} w-full max-w-[15rem] text-black rounded-3xl h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] mt-8 transition-opacity hover:opacity-90 disabled:opacity-70`}
               type="submit"

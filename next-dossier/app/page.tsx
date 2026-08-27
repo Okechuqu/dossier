@@ -12,11 +12,24 @@ import Testimonial from "./components/Testimonial";
 import ScrollToTop from "./components/ScrollToTop";
 
 export default function Home() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Okechuqu",
+    url: "https://okechuqu.com/",
+    description:
+      "Web development, API development, technical SEO, and tutoring services.",
+  };
+
   return (
-    <div className="lg:min-h-full lg:flex bg-gray-950 text-foreground lg:p-8  lg:w-full overflow-x-hidden">
+    <div className="lg:min-h-full lg:flex bg-gray-950 text-foreground lg:p-8 lg:w-full overflow-x-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <Profile />
       <Navigation />
-      <div className="flex flex-col w-full lg:ml-[22rem] xl:ml-[20rem] 2xl:ml-[24rem] ">
+      <main className="flex flex-col w-full lg:ml-[22rem] xl:ml-[20rem] 2xl:ml-[24rem]">
         <Hero />
         <About />
         <Resume />
@@ -26,7 +39,7 @@ export default function Home() {
         <Testimonial />
         <Pricing />
         <ContactSection />
-      </div>
+      </main>
       <ScrollToTop />
     </div>
   );

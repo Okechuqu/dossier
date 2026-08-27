@@ -59,12 +59,12 @@ const Pricing = async () => {
       <div className="flex flex-col w-full lg:max-w-[38rem] xl:max-w-[52rem] 2xl:max-w-[99rem] mx-auto px-6 lg:px-0 animate-fade-down text-white">
         {/* Pricing Header */}
 
-        <h1 className="text-3xl md:text-5xl mb-4 md:mb-6">
+        <h2 className="text-3xl md:text-5xl mb-4 md:mb-6">
           {titleDataResponse.pricing_title}{" "}
           <span className="text-[#a37735]">
             {titleDataResponse.pricing_title_span}
           </span>
-        </h1>
+        </h2>
         <HoverEffect items={projects} className="h-auto md:h-[33rem]" />
       </div>
     </>
@@ -88,10 +88,10 @@ const FeaturesSync = ({ features }: { features: string[] }) => {
 const AmountSync = ({ amount }: { amount: string }) => {
   return (
     <div className="mt-6 md:mt-[3rem]">
-      <h1 className="text-2xl md:text-4xl text-[#a37735] mb-1">
+      <p className="text-2xl md:text-4xl text-[#a37735] mb-1">
         ${amount}
         <span className="text-gray-500 text-lg md:text-xl">/hour</span>
-      </h1>
+      </p>
     </div>
   );
 };

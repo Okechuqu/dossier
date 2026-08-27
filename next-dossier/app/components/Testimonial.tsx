@@ -75,12 +75,12 @@ const Testimonial = async () => {
         id="testimonial"
         className="flex flex-col w-full lg:max-w-[38rem] xl:max-w-[52rem] 2xl:max-w-[99rem] mx-auto px-6 lg:px-0 animate-fade-down text-white"
       >
-        <h1 className="md:text-5xl text-xl mb-2 md:mb-6">
+        <h2 className="md:text-5xl text-xl mb-2 md:mb-6">
           {titleDataResponse.testimonial_title}{" "}
           <span className="text-[#a37735]">
             {titleDataResponse.testimonial_title_span}
           </span>
-        </h1>
+        </h2>
         <AnimatedTestimonials testimonials={response} />
       </div>
     </>

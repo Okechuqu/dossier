@@ -59,10 +59,10 @@ const Profile = async () => {
   return (
     <div className="m-2 lg:fixed lg:left-2 lg:top-1/2 lg:transform lg:-translate-y-1/2 h-[41rem] lg:w-[22rem] glass rounded-2xl p-8 mb-8 flex flex-col items-center justify-center animate-fade-up inset-0">
       <div className="flex flex-row gap-8 text-white items-center w-full justify-between mb-5">
-        <h1 className="relative text-3xl text-start font-bold">
+        <p className="relative text-3xl text-start font-bold">
           {detail.title}
           <span className="absolute top-0 right-[-3] text-xs">®</span>
-        </h1>
+        </p>
         <p className="text-sm font-medium text-end">{detail.skill}</p>
       </div>
 
@@ -108,6 +108,7 @@ const Profile = async () => {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-gray-900 border-gray-300 rounded-full glass"
+            aria-label="GitHub profile"
           >
             <IconBrandGithub />
           </Link>
@@ -118,6 +119,7 @@ const Profile = async () => {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-blue-500 border-blue-500 rounded-full glass"
+            aria-label="LinkedIn profile"
           >
             <IconBrandLinkedin />
           </Link>
@@ -128,6 +130,7 @@ const Profile = async () => {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-[#e5c274] border-[#e5c274] rounded-full glass"
+            aria-label="Upwork profile"
           >
             <IconBrandUpwork />
           </Link>
@@ -138,6 +141,7 @@ const Profile = async () => {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-gray-900 border-gray-900 rounded-full glass"
+            aria-label="X profile"
           >
             <IconBrandX />
           </Link>
@@ -148,6 +152,7 @@ const Profile = async () => {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center h-[2.5rem] w-[2.5rem] justify-center gap-2 text-white/60 hover:text-blue-600 border-blue-800 rounded-full glass"
+            aria-label="Call Okechuqu"
           >
             <IconPhoneCall />
           </Link>
@@ -161,6 +166,9 @@ const Profile = async () => {
           Hire me!
         </button>
       </SmoothScrollLink>
+      <Link href="/privacy-policy" className="mt-4 text-xs text-white/60 underline">
+        Privacy Policy
+      </Link>
     </div>
   );
 };

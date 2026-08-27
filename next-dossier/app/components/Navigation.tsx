@@ -200,6 +200,7 @@ export function Sidebar() {
                   rel="noopener noreferrer"
                   className="text-blue-500 hover:text-blue-400 transition-colors"
                   title="Facebook"
+                  aria-label="Facebook profile"
                 >
                   <IconBrandFacebookFilled size={24} />
                 </a>
@@ -211,6 +212,7 @@ export function Sidebar() {
                   rel="noopener noreferrer"
                   className="text-pink-500 hover:text-pink-400 transition-colors"
                   title="Instagram"
+                  aria-label="Instagram profile"
                 >
                   <IconBrandInstagramFilled size={24} />
                 </a>
@@ -221,6 +223,7 @@ export function Sidebar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   title="TikTok"
+                  aria-label="TikTok profile"
                   className="text-white hover:text-gray-300 transition-colors"
                 >
                   <IconBrandTiktokFilled size={24} />
@@ -232,6 +235,7 @@ export function Sidebar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   title="X (Twitter)"
+                  aria-label="X profile"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   <IconBrandXFilled size={24} />
@@ -246,14 +250,21 @@ export function Sidebar() {
           <p className="text-gray-400 flex gap-2 text-sm">
             Designed with
             <IconHeartDollar size={16} className="text-red-500" /> by{" "}
-            <a
-              href={socialDetail?.socials?.upwork}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#a37735] hover:text-[#a37735] font-semibold text-sm transition-colors"
-            >
-              {socialDetail?.title}
-            </a>
+            {socialDetail?.socials?.upwork ? (
+              <a
+                href={socialDetail.socials.upwork}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#a37735] hover:text-[#a37735] font-semibold text-sm transition-colors"
+                aria-label="Okechuqu on Upwork"
+              >
+                {socialDetail?.title}
+              </a>
+            ) : (
+              <span className="text-[#a37735] font-semibold text-sm">
+                {socialDetail?.title || "Okechuqu"}
+              </span>
+            )}
           </p>
         </div>
       </div>

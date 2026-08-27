@@ -16,9 +16,9 @@ The repository contains two applications:
 - Project gallery with image support and newest-first ordering
 - Resume and professional-experience timeline
 - Services, skills, pricing, and testimonial sections
-- Contact form that stores submissions in Sanity
-- Dynamic page metadata and web app manifest
-- Generated sitemap and `robots.txt`
+- Privacy-aware contact form with validated server-side Sanity submission
+- Dynamic metadata, canonical URLs, social cards, and JSON-LD
+- App Router sitemap and `robots.txt` using the canonical production domain
 - Optimized images through Next.js
 - Strongly typed React components and Sanity data models
 
@@ -33,7 +33,7 @@ The repository contains two applications:
 | CMS | Sanity Studio 3 |
 | Content queries | GROQ through `next-sanity` |
 | Image delivery | Sanity Image URL builder and Next.js Image |
-| SEO | Next.js Metadata API and `next-sitemap` |
+| SEO | Next.js Metadata API and Metadata Routes |
 
 ## Repository Structure
 
@@ -41,14 +41,17 @@ The repository contains two applications:
 dossier/
 ├── next-dossier/                 # Public Next.js application
 │   ├── app/
+│   │   ├── api/contact/          # Server-only contact endpoint
 │   │   ├── components/           # Portfolio sections and reusable UI
 │   │   ├── lib/                  # Portable Text and navigation utilities
+│   │   ├── privacy-policy/       # Public privacy notice
 │   │   ├── client.ts             # Sanity client configuration
 │   │   ├── globals.css           # Global styles
 │   │   ├── layout.tsx            # Root layout and metadata
-│   │   └── page.tsx              # Portfolio page composition
+│   │   ├── page.tsx              # Portfolio page composition and JSON-LD
+│   │   ├── robots.ts             # Canonical crawler directives
+│   │   └── sitemap.ts            # Canonical indexable URLs
 │   ├── next.config.mjs           # Next.js and remote image settings
-│   ├── next-sitemap.config.js    # Sitemap configuration
 │   └── package.json
 ├── studio-dossier/               # Sanity content studio
 │   ├── schemaTypes/              # Content schemas
@@ -114,13 +117,13 @@ npm ci
 Create `next-dossier/.env.local`:
 
 ```dotenv
-NEXT_PUBLIC_SANITY_API_TOKEN=your_sanity_token
+SANITY_API_TOKEN=your_new_server_only_sanity_token
 ```
 
-The frontend can read public Sanity content without a token when the dataset is public. In the current implementation, however, the contact form creates `contactMe` documents directly from the browser and therefore requires a token with permission to create those documents.
+The public client reads published Sanity content without a token. Contact submissions go to `POST /api/contact`, are validated on the server, and are written using `SANITY_API_TOKEN`. Give this token only the minimum permission required to create `contactMe` documents.
 
 > [!CAUTION]
-> Variables prefixed with `NEXT_PUBLIC_` are included in browser-delivered JavaScript. Never place a broadly privileged Sanity token in this variable. For production, move contact submission into a server-side Next.js route or Server Action, store the token in a non-public environment variable, validate the submitted fields, and add abuse protection such as rate limiting or CAPTCHA.
+> Never rename this variable to `NEXT_PUBLIC_SANITY_API_TOKEN`. Variables prefixed with `NEXT_PUBLIC_` are included in browser JavaScript. If a token was exposed there previously, revoke it, inspect Sanity activity and contact records, and issue a new least-privilege token.
 
 Add the following origins to the Sanity project's CORS settings when needed:
 
@@ -128,7 +131,7 @@ Add the following origins to the Sanity project's CORS settings when needed:
 - The production frontend domain
 - Any preview deployment domains used by the team
 
-Only enable credentialed requests for origins that genuinely require them.
+Contact writes happen on the server and do not require credentialed browser CORS access. Only enable credentialed origins when another feature genuinely requires them.
 
 ## Running Locally
 
@@ -161,7 +164,7 @@ Create and publish the relevant content documents in Studio. The frontend caches
 | Command | Description |
 | --- | --- |
 | `npm run dev` | Start the Next.js development server |
-| `npm run build` | Create a production build and generate sitemap files |
+| `npm run build` | Create a production Next.js build |
 | `npm run start` | Serve the production build |
 | `npm run lint` | Run the configured Next.js lint command |
 
@@ -192,7 +195,7 @@ Portfolio images are position-based:
 
 The second image is optional. When a project has only one image, that image is used for both the card and modal. Additional images are currently stored by Sanity but are not displayed by the frontend. Image order can be changed by reordering the images in the Portfolio document.
 
-Contact-form entries are stored as `Contact` documents in Sanity Studio. Treat these submissions as personal data and restrict Studio access accordingly.
+Contact entries contain a name, email, project type, short message, and optional budget range. Treat them as personal data, restrict Studio access, and follow the privacy-policy retention period.
 
 ## Production Builds
 
@@ -206,7 +209,7 @@ cd ../studio-dossier
 npm run build
 ```
 
-The frontend build also runs `next-sitemap`. Before deploying to another domain, update `siteUrl` in `next-dossier/next-sitemap.config.js`.
+The frontend exposes `/robots.txt` and `/sitemap.xml` through Next.js Metadata Routes. Both use `https://okechuqu.com` as the canonical domain.
 
 ## Deployment
 
@@ -217,8 +220,10 @@ The Next.js application can be deployed to Vercel or any platform that supports 
 1. Configure the deployment root directory as `next-dossier`.
 2. Add the required environment variables.
 3. Deploy the application.
-4. Add the deployed URL to Sanity's allowed CORS origins.
-5. Update the sitemap `siteUrl` if the production domain differs from the configured value.
+4. Add the deployed URL to Sanity's allowed CORS origins for public reads.
+5. Attach `okechuqu.com`, `www.okechuqu.com`, and the legacy Vercel hostname.
+6. Confirm that `www` and `dossier-oec.vercel.app` permanently redirect to `https://okechuqu.com`.
+7. Verify `/robots.txt`, `/sitemap.xml`, the homepage canonical, and `/privacy-policy`.
 
 ### Sanity Studio
 
@@ -238,7 +243,7 @@ The configured Sanity Studio hostname is `dossier`. A different hostname can be 
 - Change global colors, typography, and animations in `next-dossier/app/globals.css` and `tailwind.config.ts`.
 - Update structured content definitions in `studio-dossier/schemaTypes`.
 - Update metadata behavior in `next-dossier/app/layout.tsx`.
-- Change sitemap settings in `next-dossier/next-sitemap.config.js`.
+- Change canonical, sitemap, and robots URLs together in `app/layout.tsx`, `app/sitemap.ts`, and `app/robots.ts`.
 
 When changing a schema, restart Sanity Studio and update the corresponding TypeScript interfaces and GROQ queries in the frontend.
 
@@ -259,10 +264,10 @@ When changing a schema, restart Sanity Studio and update the corresponding TypeS
 
 ### Contact submissions fail
 
-- Confirm that `NEXT_PUBLIC_SANITY_API_TOKEN` is present in `next-dossier/.env.local`.
+- Confirm that `SANITY_API_TOKEN` is present in the server environment.
 - Verify that the token can create `contactMe` documents.
-- Confirm that the frontend origin is allowed in Sanity's CORS settings.
-- Review the browser console and network response for the rejected request.
+- Confirm that the deployed Studio schema includes `budgetRange`.
+- Review the `/api/contact` response and server logs.
 
 ### Dependency commands are unavailable
 
@@ -272,11 +277,20 @@ Run `npm ci` in the application directory where the command is being executed. E
 
 - Do not commit `.env.local` or API tokens.
 - Use least-privilege Sanity roles and tokens.
-- Prefer a server-side endpoint for contact submissions.
-- Validate and sanitize user-supplied contact data on the server.
-- Add spam and rate-limit protection before exposing the form publicly.
+- Keep contact writes in the server endpoint and never expose its token.
+- Preserve the contact field allow-list and length validation when changing the form.
+- A honeypot provides basic abuse protection. Add durable rate limiting or CAPTCHA if abuse becomes material.
 - Periodically review and remove contact submissions that are no longer needed.
 - Restrict production CORS origins to trusted domains.
+
+## Security and Privacy Deployment Checklist
+
+1. Revoke the exposed Sanity token; removing it from source code does not invalidate it.
+2. Review credential activity and existing `contactMe` records for unexpected access or submissions.
+3. Create a new least-privilege token and store it only as `SANITY_API_TOKEN`.
+4. Deploy the updated Studio schema, then deploy the frontend.
+5. Submit a test enquiry and confirm no token appears in browser JavaScript or request payloads.
+6. Review the privacy policy against actual processors, retention practices, transfer safeguards, and applicable law.
 
 ## Contributing
 

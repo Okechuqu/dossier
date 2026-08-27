@@ -30,10 +30,10 @@ const About = async () => {
         className="flex flex-col w-full lg:max-w-[38rem] xl:max-w-[52rem] 2xl:max-w-[99rem] mx-auto px-6 lg:px-0 animate-fade-down text-white mb-[3rem]"
       >
         <div>
-          <h1 className="md:text-6xl text-xl mb-6">
+          <h2 className="md:text-6xl text-xl mb-6">
             {data.about_title ?? "Untitled"}
             <span className="text-[#a37735]"> better story</span>
-          </h1>
+          </h2>
           <div className="text-base text-white/80">
             {data.body ? (
               <CustomPortableText value={data.body} />

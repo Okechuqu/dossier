@@ -18,11 +18,6 @@ export const contactType = defineType({
       validation: (rule) => rule.required().email().error('Please enter a valid email address'),
     },
     {
-      name: 'phone',
-      type: 'string',
-      title: 'Phone',
-    },
-    {
       name: 'subject',
       type: 'string',
       title: 'Subject',
@@ -38,9 +33,17 @@ export const contactType = defineType({
       validation: (rule) => rule.required(),
     },
     {
-      name: 'budget',
-      type: 'number',
-      title: 'Budget',
+      name: 'budgetRange',
+      type: 'string',
+      title: 'Budget range',
+      options: {
+        list: [
+          {title: 'Under $1,000', value: 'under-1000'},
+          {title: '$1,000–$5,000', value: '1000-5000'},
+          {title: '$5,000–$10,000', value: '5000-10000'},
+          {title: 'Over $10,000', value: 'over-10000'},
+        ],
+      },
     },
     {
       name: 'message',

@@ -83,17 +83,17 @@ const Hero = async () => {
           {/* Statistics Section Responsive */}
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-center sm:items-start">
             <div className="text-center sm:text-left">
-              <h1 className="text-[#a37735] text-4xl sm:text-5xl">
+              <p className="text-[#a37735] text-4xl sm:text-5xl">
                 {data.hero_years_of_experience}+
-              </h1>
+              </p>
               <p className="uppercase text-gray-100 text-sm sm:text-base">
                 years of experience
               </p>
             </div>
             <div className="text-center sm:text-left">
-              <h1 className="text-[#a37735] text-4xl sm:text-5xl">
+              <p className="text-[#a37735] text-4xl sm:text-5xl">
                 {data.hero_completed_projects}+
-              </h1>
+              </p>
               <p className="uppercase text-gray-100 text-sm sm:text-base">
                 total projects completed
               </p>

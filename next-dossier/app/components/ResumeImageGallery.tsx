@@ -6,9 +6,10 @@ import { IconX } from "@tabler/icons-react";
 
 interface ResumeImageGalleryProps {
   images: string[];
+  description: string;
 }
 
-const ResumeImageGallery = ({ images }: ResumeImageGalleryProps) => {
+const ResumeImageGallery = ({ images, description }: ResumeImageGalleryProps) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const ResumeImageGallery = ({ images }: ResumeImageGalleryProps) => {
           >
             <Image
               src={imageUrl}
-              alt={`Timeline Image ${index + 1}`}
+              alt={`${description} project image ${index + 1}`}
               width={1200}
               height={1200}
               sizes="(min-width: 1536px) 650px, (min-width: 1280px) 350px, (min-width: 1024px) 260px, (min-width: 768px) 40vw, 45vw"
@@ -75,7 +76,7 @@ const ResumeImageGallery = ({ images }: ResumeImageGalleryProps) => {
           >
             <Image
               src={selectedImage}
-              alt="Selected resume image"
+              alt={description}
               fill
               priority
               sizes="100vw"

@@ -107,12 +107,12 @@ const Portfolio = ({ portfolioData, titleData }: PortfolioProps) => {
       >
         <div>
           {titleData && (
-            <h1 className="text-3xl md:text-5xl mb-4 md:mb-6">
+            <h2 className="text-3xl md:text-5xl mb-4 md:mb-6">
               {titleData.portfolio_title}{" "}
               <span className="text-[#a37735]">
                 {titleData.portfolio_title_span}
               </span>
-            </h1>
+            </h2>
           )}
         </div>
         <AnimatePresence>

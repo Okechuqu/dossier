@@ -4,6 +4,7 @@ export const client = createClient({
   projectId: "kx25p8c1",
   dataset: "production",
   apiVersion: "2024-01-01",
-  token: process.env.NEXT_PUBLIC_SANITY_API_TOKEN,
-  useCdn: false,
+  // This client is imported by browser components, so it must never contain a
+  // write token. Public content reads should use Sanity's CDN.
+  useCdn: true,
 });

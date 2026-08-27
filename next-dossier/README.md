@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dossier Frontend
 
-## Getting Started
+The public Next.js 14 portfolio for `https://okechuqu.com`. Content is read from Sanity, while contact submissions are validated by a server-only API route before being stored in Sanity.
 
-First, run the development server:
+See the [repository README](../README.md) for the complete architecture, CMS workflow, deployment instructions, security checklist, and troubleshooting guidance.
+
+## Setup
+
+```bash
+npm ci
+```
+
+Create `.env.local` with a newly issued, least-privilege Sanity write token:
+
+```dotenv
+SANITY_API_TOKEN=your_server_only_sanity_token
+```
+
+Never use a `NEXT_PUBLIC_` prefix for this credential.
+
+Start the application:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npx tsc --noEmit
+npm run build
+```
 
-## Learn More
+## Important Routes
 
-To learn more about Next.js, take a look at the following resources:
+- `/` — portfolio homepage
+- `/api/contact` — validated server-side contact submission
+- `/privacy-policy` — privacy notice
+- `/robots.txt` — crawler directives for `okechuqu.com`
+- `/sitemap.xml` — canonical indexable URLs
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Production
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Set the deployment root to `next-dossier` and configure `SANITY_API_TOKEN` as a server-only secret. After deployment, verify canonical metadata and permanent redirects from `www.okechuqu.com` and `dossier-oec.vercel.app` to the apex domain.
