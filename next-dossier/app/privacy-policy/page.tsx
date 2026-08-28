@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SiteFooter from "../components/SiteFooter";
+import AnalyticsPreferences from "../components/AnalyticsPreferences";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Okechuqu",
@@ -36,29 +38,49 @@ const sections = [
 
 export default function PrivacyPolicy() {
   return (
-    <main className="min-h-screen bg-gray-950 px-6 py-16 text-white">
+    <main className="min-h-screen bg-gray-950 text-white">
       <article className="mx-auto max-w-3xl">
-        <Link href="/" className="text-[#d7b874] underline">← Back home</Link>
-        <h1 className="mt-8 text-4xl font-bold md:text-5xl">Privacy Policy</h1>
-        <p className="mt-4 text-sm text-neutral-400">Effective 27 August 2026</p>
-        <p className="mt-8 leading-7 text-neutral-300">
-          This policy explains how Okechuqu, the operator of okechuqu.com,
-          handles information you send through this website.
-        </p>
-        {sections.map(([title, content]) => (
-          <section key={title} className="mt-10">
-            <h2 className="text-2xl font-semibold">{title}</h2>
-            <p className="mt-3 leading-7 text-neutral-300">{content}</p>
-          </section>
-        ))}
-        <section className="mt-10">
-          <h2 className="text-2xl font-semibold">Contact</h2>
-          <p className="mt-3 leading-7 text-neutral-300">
-            To make a privacy request or ask a question, use the contact details
-            on the homepage and clearly mark your message “Privacy request.”
+        <div className="px-4 py-8 sm:px-6 lg:px-8 lg:py-14">
+          <Link href="/" className="text-[#d7b874] underline">
+            ← Back home
+          </Link>
+          <h1 className="mt-8 text-4xl font-bold md:text-5xl">
+            Privacy Policy
+          </h1>
+          <p className="mt-4 text-sm text-neutral-400">
+            Effective 27 August 2026
           </p>
-        </section>
+          <p className="mt-8 leading-7 text-neutral-300">
+            This policy explains how Okechuqu, the operator of okechuqu.com,
+            handles information you send through this website.
+          </p>
+          {sections.map(([title, content]) => (
+            <section key={title} className="mt-10">
+              <h2 className="text-2xl font-semibold">{title}</h2>
+              <p className="mt-3 leading-7 text-neutral-300">{content}</p>
+            </section>
+          ))}
+          <section className="mt-10 rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-6">
+            <h2 className="text-2xl font-semibold">Manage preferences</h2>
+            <p className="mt-3 max-w-2xl leading-7 text-neutral-300">
+              If you change your mind about analytics, you can update your
+              preference here without filling in another form.
+            </p>
+            <div className="mt-4">
+              <AnalyticsPreferences />
+            </div>
+          </section>
+          <section className="mt-10">
+            <h2 className="text-2xl font-semibold">Contact</h2>
+            <p className="mt-3 leading-7 text-neutral-300">
+              To make a privacy request or ask a question, use the contact
+              details on the homepage and clearly mark your message “Privacy
+              request.”
+            </p>
+          </section>
+        </div>
       </article>
+      <SiteFooter />
     </main>
   );
 }

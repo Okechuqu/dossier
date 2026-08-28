@@ -9,6 +9,7 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import imageUrlBuilder from "@sanity/image-url";
 import CustomPortableText from "../lib/customs";
 import { PortableTextBlock } from "next-sanity";
+import Link from "next/link";
 
 export interface TitleDataDocument {
   portfolio_title: string;
@@ -213,6 +214,19 @@ const Portfolio = ({ portfolioData, titleData }: PortfolioProps) => {
             </div>
           ))}
         </ul>
+        <div className="mt-4 flex flex-col gap-3 rounded-3xl border border-white/10 bg-white/5 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-neutral-300">
+            Looking for the full story behind the strongest client work? The
+            case-study pages cover the structure, process, and next step.
+          </p>
+          <Link
+            href="/case-studies"
+            data-analytics-event="case_studies_overview_cta"
+            className="inline-flex w-fit items-center justify-center rounded-full border border-[#d4bd89] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#d4bd89] hover:text-black"
+          >
+            View case studies
+          </Link>
+        </div>
       </div>
     </>
   );

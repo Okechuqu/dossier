@@ -109,10 +109,12 @@ function IconContainer({
     <Link
       href={href}
       onClick={(e) => {
-        e.preventDefault(); // Prevent default anchor behavior
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth" });
+        if (href.startsWith("#")) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+          }
         }
       }}
     >

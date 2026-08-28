@@ -4,6 +4,7 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "./client";
 import imageUrlBuilder from "@sanity/image-url";
 import { type SanityDocument } from "next-sanity";
+import ConsentAnalytics from "./components/ConsentAnalytics";
 
 const PROFILE_QUERY = `*[_type == "profile"] | order(_createdAt desc) [0]`;
 const options = { next: { revalidate: 30 } };
@@ -84,7 +85,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && (
+          <meta
+            name="google-site-verification"
+            content={process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION}
+          />
+        )}
+        {process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION && (
+          <meta
+            name="msvalidate.01"
+            content={process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION}
+          />
+        )}
+      </head>
+      <body>
+        {children}
+        <ConsentAnalytics />
+      </body>
     </html>
   );
 }

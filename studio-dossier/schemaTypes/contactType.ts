@@ -18,9 +18,9 @@ export const contactType = defineType({
       validation: (rule) => rule.required().email().error('Please enter a valid email address'),
     },
     {
-      name: 'subject',
+      name: 'projectType',
       type: 'string',
-      title: 'Subject',
+      title: 'Project type',
       options: {
         list: [
           {title: 'Tutoring', value: 'tutoring'},

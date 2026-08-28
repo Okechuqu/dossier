@@ -62,7 +62,7 @@ export async function POST(request: Request) {
       _type: "contactMe",
       name,
       email,
-      subject: projectType,
+      projectType,
       budgetRange: budgetRange || undefined,
       message,
     });

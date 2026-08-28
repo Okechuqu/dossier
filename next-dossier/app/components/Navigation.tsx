@@ -18,9 +18,13 @@ import {
   IconMail,
   IconUser,
   IconX,
+  IconLayoutDashboard,
+  IconFileText,
+  IconShieldLock,
 } from "@tabler/icons-react";
 import { client } from "../client";
 import { SanityDocument } from "next-sanity";
+import Link from "next/link";
 
 const PROFILE_QUERY = `*[
   _type == "profile"
@@ -89,6 +93,27 @@ const links = [
       <IconMail className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
     ),
     href: "#contact",
+  },
+  {
+    title: "Services page",
+    icon: (
+      <IconLayoutDashboard className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
+    ),
+    href: "/services",
+  },
+  {
+    title: "Case studies",
+    icon: (
+      <IconFileText className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
+    ),
+    href: "/case-studies",
+  },
+  {
+    title: "Privacy policy",
+    icon: (
+      <IconShieldLock className="w-full text-neutral-500 dark:text-neutral-300 hover:text-[#a37735]" />
+    ),
+    href: "/privacy-policy",
   },
 ];
 
@@ -169,20 +194,22 @@ export function Sidebar() {
                 <span className="text-neutral-400 hover:text-[#a37735] transition-colors">
                   {link.icon}
                 </span>
-                <a
+                <Link
                   href={link.href}
                   className="block text-gray-50 hover:text-[#a37735] transition-colors"
                   onClick={(e) => {
-                    e.preventDefault();
-                    const target = document.querySelector(link.href);
-                    if (target) {
-                      target.scrollIntoView({ behavior: "smooth" });
+                    if (link.href.startsWith("#")) {
+                      e.preventDefault();
+                      const target = document.querySelector(link.href);
+                      if (target) {
+                        target.scrollIntoView({ behavior: "smooth" });
+                      }
                     }
                     setIsOpen(false);
                   }}
                 >
                   {link.title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

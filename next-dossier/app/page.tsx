@@ -6,6 +6,7 @@ import PortfolioSection from "./components/PortfolioSection";
 import Pricing from "./components/Pricing";
 import Profile from "./components/Profile";
 import Resume from "./components/Resume";
+import SiteFooter from "./components/SiteFooter";
 import Services from "./components/Services";
 import Skill from "./components/Skills";
 import Testimonial from "./components/Testimonial";
@@ -40,6 +41,7 @@ export default function Home() {
         <Pricing />
         <ContactSection />
       </main>
+      <SiteFooter />
       <ScrollToTop />
     </div>
   );

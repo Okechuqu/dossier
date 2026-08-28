@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { IconTerminal } from "@tabler/icons-react";
 import { client } from "../client";
@@ -68,6 +69,19 @@ const Services = async () => {
             .map((feature, index) => (
               <Feature key={feature.heading} {...feature} index={index} />
             ))}
+        </div>
+        <div className="flex flex-col gap-3 rounded-3xl border border-white/10 bg-white/5 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-neutral-300">
+            Want the details in a dedicated view? The service pages are easier
+            to scan on mobile and give each offer more breathing room.
+          </p>
+          <Link
+            href="/services"
+            data-analytics-event="services_overview_cta"
+            className="inline-flex w-fit items-center justify-center rounded-full border border-[#d4bd89] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#d4bd89] hover:text-black"
+          >
+            View service pages
+          </Link>
         </div>
       </div>
     </>

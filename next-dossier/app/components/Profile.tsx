@@ -77,7 +77,7 @@ const Profile = async () => {
             sizes="240px"
             quality={95}
             className="w-full h-full object-cover"
-            loading="lazy"
+            priority
           />
         )}
       </div>
@@ -161,7 +161,10 @@ const Profile = async () => {
 
       {/* Hire Me Button */}
       <SmoothScrollLink href="#contact">
-        <button className="flex flex-row items-center justify-center gap-2 bg-gradient-to-br uppercase relative group/btn from-[#a37735] to-[#d7b874] w-[15rem] text-black rounded-3xl h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] mt-8">
+        <button
+          data-analytics-event="profile_hire_me"
+          className="flex flex-row items-center justify-center gap-2 bg-gradient-to-br uppercase relative group/btn from-[#a37735] to-[#d7b874] w-[15rem] text-black rounded-3xl h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] mt-8"
+        >
           <IconMessage2Bolt />
           Hire me!
         </button>

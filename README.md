@@ -16,8 +16,11 @@ The repository contains two applications:
 - Project gallery with image support and newest-first ordering
 - Resume and professional-experience timeline
 - Services, skills, pricing, and testimonial sections
+- Dedicated service pages for Next.js, Django, API work, technical SEO, and tutoring
+- Dedicated case-study pages for selected client work
 - Privacy-aware contact form with validated server-side Sanity submission
-- Dynamic metadata, canonical URLs, social cards, and JSON-LD
+- Dynamic metadata, canonical URLs, social cards, JSON-LD, and search-engine verification hooks
+- Consent-aware analytics scaffolding with a simple preference toggle
 - App Router sitemap and `robots.txt` using the canonical production domain
 - Optimized images through Next.js
 - Strongly typed React components and Sanity data models
@@ -44,7 +47,9 @@ dossier/
 │   │   ├── api/contact/          # Server-only contact endpoint
 │   │   ├── components/           # Portfolio sections and reusable UI
 │   │   ├── lib/                  # Portable Text and navigation utilities
+│   │   ├── case-studies/         # Selected project case-study pages
 │   │   ├── privacy-policy/       # Public privacy notice
+│   │   ├── services/             # Dedicated service pages
 │   │   ├── client.ts             # Sanity client configuration
 │   │   ├── globals.css           # Global styles
 │   │   ├── layout.tsx            # Root layout and metadata
@@ -118,6 +123,9 @@ Create `next-dossier/.env.local`:
 
 ```dotenv
 SANITY_API_TOKEN=your_new_server_only_sanity_token
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your_google_search_console_token
+NEXT_PUBLIC_BING_SITE_VERIFICATION=your_bing_webmaster_token
 ```
 
 The public client reads published Sanity content without a token. Contact submissions go to `POST /api/contact`, are validated on the server, and are written using `SANITY_API_TOKEN`. Give this token only the minimum permission required to create `contactMe` documents.
@@ -196,6 +204,16 @@ Portfolio images are position-based:
 The second image is optional. When a project has only one image, that image is used for both the card and modal. Additional images are currently stored by Sanity but are not displayed by the frontend. Image order can be changed by reordering the images in the Portfolio document.
 
 Contact entries contain a name, email, project type, short message, and optional budget range. Treat them as personal data, restrict Studio access, and follow the privacy-policy retention period.
+
+The frontend now also exposes:
+
+- `/services` and `/services/[slug]`
+- `/case-studies` and `/case-studies/[slug]`
+- `/privacy-policy`
+- `/robots.txt`
+- `/sitemap.xml`
+
+Analytics events are only sent after the visitor grants consent. The footer includes a preference toggle, and the homepage contact form dispatches a conversion event after successful submission.
 
 ## Production Builds
 

@@ -102,6 +102,14 @@ const ContactForm: React.FC<ContactFormProps> = ({
         body: JSON.stringify(formData),
       });
       if (!response.ok) throw new Error("Contact request failed");
+      window.dispatchEvent(
+        new CustomEvent("site-contact-submitted", {
+          detail: {
+            projectType: formData.projectType,
+            budgetRange: formData.budgetRange || "not_specified",
+          },
+        }),
+      );
       setAlert({ message: "Message sent successfully!", type: "success" });
       setFormData({
         name: "",
@@ -129,8 +137,8 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
   return (
     <>
-      <div className="flex flex-col sm:flex-row justify-between text-white mb-6 lg:w-full">
-        <div className="no-underline group relative rounded-full p-px leading-6 text-white inline-block mb-4 sm:mb-0 lg:mt-[15rem] xl:mt-40 sm:mt-[50rem] md:mt-36">
+      <div className="mb-6 flex flex-col justify-between text-white sm:flex-row lg:w-full">
+        <div className="no-underline group relative inline-block rounded-full p-px leading-6 text-white mb-4 sm:mb-0 mt-0">
           <div className="relative flex space-x-2 ml-5 lg:ml-[-1rem] xl:ml-[1rem] items-center z-10 rounded-full bg-gray-950 py-2 px-4 ring-1 ring-[#d4bd89] w-[9rem]">
             <IconMessage2 size={18} />
             <span className="uppercase text-xs">Contact</span>
@@ -250,6 +258,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
               for retention, service providers, transfers, and your rights.
             </p>
             <button
+              data-analytics-event="contact_form_submit"
               className={`${BUTTON_GRADIENT} w-full max-w-[15rem] text-black rounded-3xl h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset] mt-8 transition-opacity hover:opacity-90 disabled:opacity-70`}
               type="submit"
               disabled={loading}
