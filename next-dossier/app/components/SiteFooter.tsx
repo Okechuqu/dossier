@@ -1,10 +1,19 @@
+"use client";
+
 import Link from "next/link";
-import AnalyticsPreferences from "./AnalyticsPreferences";
+import { usePathname } from "next/navigation";
 
 const SiteFooter = () => {
+  const pathname = usePathname();
+
+  // Hide footer on homepage for large screens only
+  const hideOnHomeLarge = pathname === "/" ? "lg:hidden" : "";
+
   return (
-    <footer className="border-t border-white/10 bg-black/20 px-4 py-8 text-white sm:px-6 lg:px-8">
-      <div className="mx-auto grid w-full max-w-7xl gap-8 md:grid-cols-[1.5fr_1fr_1fr]">
+    <footer
+      className={`${hideOnHomeLarge} border-t border-white/10 bg-gradient-to-r from-[#0b0b0d] via-[#0f0f12] to-[#0b0b0d] px-4 py-8 text-white sm:px-6 lg:px-8`}
+    >
+      <div className="mx-auto grid w-full max-w-7xl gap-8 md:grid-cols-[1.5fr_1fr]">
         <div className="max-w-md">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-[#d7b874]">
             Okechuqu
@@ -30,7 +39,10 @@ const SiteFooter = () => {
             >
               Case studies
             </Link>
-            <Link href="/privacy-policy" className="transition hover:text-[#d7b874]">
+            <Link
+              href="/privacy-policy"
+              className="transition hover:text-[#d7b874]"
+            >
               Privacy policy
             </Link>
           </nav>
@@ -38,10 +50,9 @@ const SiteFooter = () => {
 
         <div>
           <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-neutral-400">
-            Preferences
+            Get in touch
           </h2>
-          <div className="mt-4 flex flex-col gap-3">
-            <AnalyticsPreferences />
+          <div className="mt-4">
             <Link
               href="/#contact"
               data-analytics-event="footer_contact_cta"

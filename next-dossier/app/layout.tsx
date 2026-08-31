@@ -5,6 +5,7 @@ import { client } from "./client";
 import imageUrlBuilder from "@sanity/image-url";
 import { type SanityDocument } from "next-sanity";
 import ConsentAnalytics from "./components/ConsentAnalytics";
+import SiteFooter from "./components/SiteFooter";
 
 const PROFILE_QUERY = `*[_type == "profile"] | order(_createdAt desc) [0]`;
 const options = { next: { revalidate: 30 } };
@@ -99,8 +100,9 @@ export default function RootLayout({
           />
         )}
       </head>
-      <body>
-        {children}
+      <body className="min-h-screen flex flex-col">
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
         <ConsentAnalytics />
       </body>
     </html>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import SiteFooter from "../components/SiteFooter";
+// SiteFooter is rendered globally in RootLayout
 import { caseStudies } from "./data";
 
 const SITE_URL = "https://okechuqu.com";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function CaseStudiesPage() {
   return (
-    <main className="min-h-screen bg-gray-950 text-white">
+    <main className="min-h-full bg-gray-950 text-white">
       <section className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-14">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#d7b874]">
@@ -65,7 +65,6 @@ export default function CaseStudiesPage() {
           ))}
         </div>
       </section>
-      <SiteFooter />
     </main>
   );
 }

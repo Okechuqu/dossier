@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import SiteFooter from "../components/SiteFooter";
+// SiteFooter is rendered globally in RootLayout
 import AnalyticsPreferences from "../components/AnalyticsPreferences";
 
 export const metadata: Metadata = {
@@ -38,7 +38,7 @@ const sections = [
 
 export default function PrivacyPolicy() {
   return (
-    <main className="min-h-screen bg-gray-950 text-white">
+    <main className="min-h-full bg-gray-950 text-white">
       <article className="mx-auto max-w-3xl">
         <div className="px-4 py-8 sm:px-6 lg:px-8 lg:py-14">
           <Link href="/" className="text-[#d7b874] underline">
@@ -80,7 +80,6 @@ export default function PrivacyPolicy() {
           </section>
         </div>
       </article>
-      <SiteFooter />
     </main>
   );
 }

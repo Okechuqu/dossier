@@ -65,7 +65,7 @@ const Pricing = async () => {
             {titleDataResponse.pricing_title_span}
           </span>
         </h2>
-        <HoverEffect items={projects} className="h-auto md:h-[33rem]" />
+        <HoverEffect items={projects} className="h-auto md:h-auto" />
       </div>
     </>
   );

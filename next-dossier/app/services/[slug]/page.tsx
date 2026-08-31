@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import SiteFooter from "../../components/SiteFooter";
+// SiteFooter is rendered globally in RootLayout
 import { serviceBySlug, services, type ServiceSlug } from "../data";
 
 const SITE_URL = "https://okechuqu.com";
@@ -43,7 +43,7 @@ export default function ServiceDetailPage({
   if (!service) notFound();
 
   return (
-    <main className="min-h-screen bg-gray-950 text-white">
+    <main className="min-h-full bg-gray-950 text-white">
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-14">
         <Link
           href="/services"
@@ -103,7 +103,6 @@ export default function ServiceDetailPage({
           </Link>
         </section>
       </section>
-      <SiteFooter />
     </main>
   );
 }

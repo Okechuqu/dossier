@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SiteFooter from "../../components/SiteFooter";
+// SiteFooter is rendered globally in RootLayout
 import { caseStudyBySlug, caseStudies, type CaseStudySlug } from "../data";
 
 const SITE_URL = "https://okechuqu.com";
@@ -43,7 +43,7 @@ export default function CaseStudyDetailPage({
   if (!study) notFound();
 
   return (
-    <main className="min-h-screen bg-gray-950 text-white">
+    <main className="min-h-full bg-gray-950 text-white">
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 py-8 sm:px-6 lg:px-8 lg:py-14">
         <Link
           href="/case-studies"
@@ -113,7 +113,6 @@ export default function CaseStudyDetailPage({
           </Link>
         </section>
       </section>
-      <SiteFooter />
     </main>
   );
 }
